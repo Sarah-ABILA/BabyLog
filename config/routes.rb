@@ -1,16 +1,26 @@
 Rails.application.routes.draw do
+  # Création Users avec devise pour l'authentification
   devise_for :users
-  root to: "pages#home"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Utilisation de authenticate user pour ne pas creer de doublon de users/devise
+  # authenticate user pour ne pas avoir la possibilité de recupérer/changer les id d'autres users dans l'url
+  authenticate :user do
+    resources :user_babies, only: [:new, :create]
+  end
+
+  resources :user_babies, only: [:destroy, :update, :edit, :show]
+
+  root to: "pages#home"
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  resources :chats, only: [:index, :show, :new, :create, :destroy] do
+    resources :messages, only: [:create]
+    # Le résultat est souvent unique par chat
+    resources :results, only: [:create, :show]
+    # Route personnalisée pour déclencher la génération de la roadmap
+    member do
+      post :generate_roadmap
+    end
+  end
 
-  # Defines the root path route ("/")
-  # root "posts#index"
 end
