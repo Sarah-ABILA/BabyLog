@@ -22,5 +22,4 @@ Rails.application.routes.draw do
       post :generate_roadmap
     end
   end
-
 end
