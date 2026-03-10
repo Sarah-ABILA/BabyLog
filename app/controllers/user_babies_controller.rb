@@ -20,15 +20,26 @@ class UserBabiesController < ApplicationController
   end
 
   def show
+    @baby = UserBaby.find(params[:id])
   end
 
   def edit
+    @baby = UserBaby.find(params[:id])
   end
 
   def update
+    @baby = UserBaby.find(params[:id])
+    if @baby.update!(baby_params)
+      redirect_to baby_path(@baby)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
+    @baby = UserBaby.find(params[:id])
+    @baby.destroy
+    redirect_to "pages/home", status: :see_other
   end
 
   private
