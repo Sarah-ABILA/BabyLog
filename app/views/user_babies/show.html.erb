@@ -1,1 +1,130 @@
 <h1>Page de profil du bébé</h1>
+<%# app/views/user_babies/show.html.erb
+    Route : GET /user_babies/:id
+    Controller : UserBabiesController#show
+    @user_baby = current_user.user_babies.find(params[:id])
+%>
+
+<div class="profile-page">
+
+  <div class="profile-header">
+
+    <%# Bouton retour %>
+    <%= link_to root_path, class: "profile-header__back" do %>‹<% end %>
+
+    <span class="profile-header__title">Profil de bébé</span>
+
+    <%# Avatar (photo ou emoji par défaut) %>
+    <div class="profile-header__avatar">
+      <% if @user_baby.avatar.present? %>
+        <%= image_tag @user_baby.avatar,
+              class: "profile-header__avatar-img",
+              alt: @user_baby.name %>
+      <% else %>
+        <span>👶</span>
+      <% end %>
+    </div>
+
+  </div>
+
+  <div class="profile-body">
+
+    <%# Nom + badge âge %>
+    <div class="profile-name">
+      <h2><%= @user_baby.name %></h2>
+      <% months = ((Date.today - @user_baby.birth_date) / 30.44).floor %>
+      <span class="profile-name__badge">
+        <% if months < 24 %>
+          <%= months %> mois
+        <% else %>
+          <%= months / 12 %> an<%= 's' if months / 12 > 1 %>
+        <% end %>
+      </span>
+    </div>
+
+    <%# ── Card formulaire de mise à jour ── %>
+    <div class="profile-card">
+
+      <p class="profile-card__section-title">Informations</p>
+
+      <%# simple_form_for PATCH → UserBabiesController#update %>
+      <%= simple_form_for @user_baby,
+            url: user_baby_path(@user_baby),
+            method: :patch do |f| %>
+
+        <%# Prénom %>
+        <div class="form-field">
+          <%= f.label :name, "Prénom", class: "form-field__label" %>
+          <div class="form-field__wrap">
+            <span class="form-field__icon">✏️</span>
+            <%= f.input_field :name,
+                  class: "form-field__input",
+                  required: true,
+                  autocomplete: "off" %>
+          </div>
+          <%= f.error :name, class: "form-field__error" %>
+        </div>
+
+        <%# Date de naissance %>
+        <div class="form-field">
+          <%= f.label :birth_date, "Date de naissance", class: "form-field__label" %>
+          <div class="form-field__wrap">
+            <span class="form-field__icon">🎂</span>
+            <%= f.input_field :birth_date,
+                  as: :date,
+                  class: "form-field__input",
+                  required: true %>
+          </div>
+          <%= f.error :birth_date, class: "form-field__error" %>
+        </div>
+
+        <%# Poids %>
+        <div class="form-field">
+          <%= f.label :weight, "Poids", class: "form-field__label" %>
+          <div class="form-field__wrap">
+            <span class="form-field__icon">⚖️</span>
+            <%= f.input_field :weight,
+                  as: :decimal,
+                  step: "0.1",
+                  min: "0",
+                  max: "30",
+                  class: "form-field__input form-field__input--with-suffix",
+                  required: true %>
+            <span class="form-field__suffix">kg</span>
+          </div>
+          <%= f.error :weight, class: "form-field__error" %>
+        </div>
+
+        <%# Médecin traitant %>
+        <div class="form-field">
+          <%= f.label :doctor, "Médecin traitant", class: "form-field__label" %>
+          <div class="form-field__wrap">
+            <span class="form-field__icon">🩺</span>
+            <%= f.input_field :doctor,
+                  placeholder: "Ex : Dr. Dupont",
+                  class: "form-field__input",
+                  autocomplete: "off" %>
+          </div>
+          <span class="form-field__hint">Facultatif</span>
+          <%= f.error :doctor, class: "form-field__error" %>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <%= f.submit "Mettre à jour 💾", class: "btn-submit" %>
+
+      <% end %>
+
+      <%# ── Bouton supprimer (séparé du form) ── %>
+      <%= button_to "🗑 Supprimer ce profil",
+            user_baby_path(@user_baby),
+            method: :delete,
+            data: { turbo_confirm: "Supprimer #{@user_baby.name} ? Cette action est irréversible." },
+            class: "btn-danger" %>
+
+    </div>
+
+    <p class="form-note">Les modifications sont sauvegardées immédiatement</p>
+
+  </div>
+</div>
