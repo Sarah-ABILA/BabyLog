@@ -1,0 +1,258 @@
+/* ===== PAGE GLOBALE ===== */
+.result-page {
+  background: #f6f3f1;
+  min-height: 100vh;
+  padding: 24px 16px 48px;
+}
+
+.result-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ===== HEADER / TITLE PARTIAL ===== */
+.babylog-title {
+  text-align: center;
+  margin: 24px auto 32px;
+}
+
+.logo-badge {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgba(191, 120, 138, 0.12);
+  color: #bf788a;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+  margin-bottom: 16px;
+}
+
+.brand {
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1;
+  color: #bf788a;
+  margin: 0;
+}
+
+.accent {
+  font-weight: 300;
+  color: #d79aa8;
+}
+
+.tagline {
+  margin-top: 16px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(90deg, #bfcad9, #aebccd);
+  padding: 16px 28px;
+  border-radius: 999px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.separator {
+  width: 110px;
+  height: 4px;
+  border-radius: 999px;
+  background: #bf788a;
+  margin: 22px auto 0;
+  opacity: 0.7;
+}
+
+/* ===== CARTE INFOS CHAT / BEBE ===== */
+.result-header-card {
+  background: #ffffff;
+  border: 1px solid rgba(191, 120, 138, 0.2);
+  border-radius: 24px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.result-label {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(191, 120, 138, 0.12);
+  color: #bf788a;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.chat-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #5c4a4f;
+  margin-bottom: 10px;
+}
+
+.chat-persona {
+  font-size: 16px;
+  color: #7d6a70;
+  margin-bottom: 0;
+}
+
+.baby-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.baby-pill {
+  display: inline-block;
+  background: #f8eef1;
+  color: #8d616d;
+  border: 1px solid rgba(191, 120, 138, 0.18);
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+/* ===== CARTE RESULTAT IA ===== */
+.result-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(191, 120, 138, 0.12);
+}
+
+.result-card .intro-text {
+  font-size: 18px;
+  color: #5f4f55;
+  margin-bottom: 24px;
+  line-height: 1.7;
+}
+
+.result-card .step {
+  background: #fcf7f8;
+  border: 1px solid rgba(191, 120, 138, 0.12);
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 18px;
+}
+
+.result-card .step h2 {
+  font-size: 22px;
+  color: #bf788a;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+.result-card .step ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.result-card .step li {
+  margin-bottom: 10px;
+  color: #5f4f55;
+  line-height: 1.6;
+}
+
+.result-card .encourage {
+  margin-top: 24px;
+  padding: 18px 20px;
+  background: #f4eef9;
+  border-radius: 16px;
+  color: #6f5a7b;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* ===== BOUTONS ACTIONS ===== */
+.result-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.result-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 14px 22px;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.primary-btn {
+  background: #bf788a;
+  color: #ffffff;
+}
+
+.primary-btn:hover {
+  background: #ab6677;
+}
+
+.secondary-btn {
+  background: #ffffff;
+  color: #7d6a70;
+  border: 1px solid rgba(191, 120, 138, 0.22);
+}
+
+.secondary-btn:hover {
+  background: #f8eef1;
+}
+
+/* ===== BOUTON RETOUR ACCUEIL ===== */
+.back-home {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.home-link-btn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 14px 26px;
+  border-radius: 14px;
+  border: 1px solid rgba(191, 120, 138, 0.35);
+  color: #a06b78;
+  background: transparent;
+  font-weight: 500;
+}
+
+.home-link-btn:hover {
+  background: rgba(191, 120, 138, 0.06);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .brand {
+    font-size: 40px;
+  }
+
+  .tagline {
+    font-size: 18px;
+    padding: 14px 18px;
+  }
+
+  .result-header-card,
+  .result-card {
+    padding: 20px;
+  }
+
+  .chat-title {
+    font-size: 26px;
+  }
+
+  .result-actions {
+    flex-direction: column;
+  }
+
+  .result-btn,
+  .home-link-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
