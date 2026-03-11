@@ -1,7 +1,19 @@
-class ApplicationJob < ActiveJob::Base
-  # Automatically retry jobs that encountered a deadlock
-  # retry_on ActiveRecord::Deadlocked
+class ApplicationController < ActionController::Base
+  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
+  before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  allow_browser versions: :modern
+  before_action do
+    I18n.locale = :fr
+  end
+  # Changes to the importmap will invalidate the etag for HTML responses
+  stale_when_importmap_changes
 
-  # Most jobs are safe to ignore if the underlying records are no longer available
-  # discard_on ActiveJob::DeserializationError
+  protected
+
+  # autorisation des champs personnalisés (first_name et last_name) pour le sign_in et le account_update
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[last_name first_name])
+  end
 end
