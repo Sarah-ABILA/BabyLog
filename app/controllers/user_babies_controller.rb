@@ -8,12 +8,13 @@ class UserBabiesController < ApplicationController
   def create
     @baby = UserBaby.new(baby_params)
     @baby.user = current_user
-    @baby.name = params[:name]
-    @baby.birth_date = params[:birth_date]
-    @baby.weight = params[:weight]
+    # @baby.name = params[:name]
+    # @baby.birth_date = params[:birth_date]
+    # @baby.weight = params[:weight]
+    # @baby.doctor = params[:doctor]
 
     if @baby.save
-      redirect_to baby_path(@baby)
+      redirect_to user_baby_path(@baby)
     else
       render "pages/home", status: :unprocessable_entity
     end
@@ -45,6 +46,6 @@ class UserBabiesController < ApplicationController
   private
 
   def baby_params
-    params.require(:user_babies).permit(:name, :birth_date, :weight)
+    params.require(:user_baby).permit(:name, :birth_date, :weight, :doctor, :avatar)
   end
 end

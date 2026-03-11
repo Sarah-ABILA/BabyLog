@@ -1,68 +1,119 @@
-<%# <h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p> %>
+<%# app/views/pages/home.html.erb %>
 
-<!-- Hero --->
-  <div class="hero-container text-center position-relative mb-5 rounded-5">
-    <%# <img src="assets/images/Logo.png" alt="logo babylog"> %>
-    <div class="col"><%= image_tag "Logo.png", alt: "logo babylog", class:"avatar" %></div>
-    <p class="fw-semibold">Moins de doutes. Plus de clarté.</p>
-      <!-- Main Button --->
-    <div class="mt-0 text-center" data-controller="coaching">
-      <button class="btn btn-question position-absolute top-100 start-50 translate-middle" data-coaching-target="startButton"  data-action="click->coaching#start">Posez votre question</button>
+<%# === SECTION HERO === %>
+<section class="hero-container text-center position-relative mb-5 rounded-5">
+  <div class="hero-content">
+    <%# Affichage du logo via les assets Rails %>
+    <div class="col mb-3">
+      <%= image_tag "Logo.png", alt: "logo babylog", class: "avatar-logo", style: "width: 80px;" %>
+    </div>
 
-      <!--  <%= simple_form_for @chat do |f| %>
-          <%= f.hidden_field :title, value: "" %>
-          <div data-coaching-target="personaButtons z-2 row justify-content-between" class="d-none">
-          <%= f.submit "Sans emploi", value: "Sans emploi", name: :persona, class: " col-4 btn main-button w-50 position-absolute top-100 bottom-0 start-0 ms-2 mt-3" %>
-          <%= f.submit "Avec emploi", value: "Avec emploi", name: :persona, class: " col-4 btn main-button w-50 position-absolute top-100 bottom-0 end-0 mt-3 me-2" %>
+    <h1 class="hero-tagline">
+      Moins de doutes,<br>
+      <em>Plus de clarté.</em>
+    </h1>
+
+    <p class="fw-semibold text-muted">Votre compagnon parentalité intelligent.</p>
+
+    <%# Bouton principal avec contrôleur de coaching si tu souhaites garder l'animation %>
+    <div class="mt-4 text-center" data-controller="coaching">
+      <%= link_to "Posez votre question", new_chat_path,
+          class: "btn-question shadow-lg",
+          data: { coaching_target: "startButton", action: "click->coaching#start" } %>
+    </div>
+  </div>
+</section>
+
+<%# === SECTION BODY (Carrousel & Actions) === %>
+<main class="home-body container">
+
+  <%# --- CARROUSEL "MES ENFANTS" --- %>
+  <section class="children-carousel mb-5" data-controller="carousel">
+
+    <%# Header du carrousel : Titre + Dots de navigation %>
+    <div class="children-carousel__header mb-3 d-flex align-items-center justify-content-between">
+      <h2 class="children-carousel__title m-0">Mes enfants</h2>
+
+      <div class="children-carousel__dots" data-carousel-target="dots">
+        <%# On génère dynamiquement les points de navigation (Enfants + Carte Ajout) %>
+        <% total_slides = current_user.user_babies.count + 1 %>
+        <% total_slides.times do |i| %>
+          <button class="carousel-dot <%= 'carousel-dot--active' if i == 0 %>"
+                  data-action="click->carousel#goTo"
+                  data-index="<%= i %>"
+                  aria-label="Voir l'enfant <%= i + 1 %>">
+          </button>
+        <% end %>
+      </div>
+    </div>
+
+    <%# Track (Piste) du carrousel gérée par Stimulus %>
+    <div class="children-carousel__track-wrapper">
+      <div class="children-carousel__track" data-carousel-target="track">
+
+        <%# 1. Boucle sur les enfants de l'utilisateur %>
+        <% current_user.user_babies.each do |baby| %>
+          <div class="children-carousel__slide" data-carousel-target="slide">
+            <%= link_to user_baby_path(baby), class: "child-card" do %>
+              <div class="child-card__avatar">
+                <% if baby.avatar.present? %>
+                  <%= image_tag baby.avatar, class: "child-card__avatar-img", alt: "Photo de #{baby.name}" %>
+                <% else %>
+                  <span class="child-card__avatar-emoji">👶</span>
+                <% end %>
+              </div>
+
+              <div class="child-card__info">
+                <div class="child-card__value"><%= baby.name %></div>
+                <div class="child-card__row mt-1">
+                  <div>
+                    <div class="child-card__label">ÂGE</div>
+                    <div class="child-card__value">
+                      <%= distance_of_time_in_words(Date.today, baby.birth_date) %>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="child-card__label">POIDS</div>
+                    <div class="child-card__value"><%= baby.weight %> kg</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="child-card__arrow">
+                <i class="fa-solid fa-chevron-right"></i>
+              </div>
+            <% end %>
           </div>
-        <% end %> -->
-      <!-- JS- stimulus pour afficher les bouttons persona --->
-    </div>
-  </div>
+        <% end %>
 
+        <%# 2. Slide final : Toujours présent pour ajouter un enfant %>
+        <div class="children-carousel__slide" data-carousel-target="slide">
+          <%= link_to new_user_baby_path, class: "child-card child-card--empty" do %>
+            <div class="child-card__avatar child-card__avatar--empty">
+              <span class="child-card__avatar-emoji text-babylog">＋</span>
+            </div>
+            <div class="child-card__info">
+              <div class="child-card__value" style="color: #C4736A;">Ajouter un enfant</div>
+              <div class="child-card__label">PERSONNALISER LE SUIVI</div>
+            </div>
+            <div class="child-card__arrow child-card__arrow--add">＋</div>
+          <% end %>
+        </div>
 
-<!-- Caroussel des cards enfants -->
-  <div id="carouselExampleDark" class="carousel carousel-dark slide">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active" data-bs-interval="10000">
-        <img src="..." class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>First slide label</h5>
-          <p>Some representative placeholder content for the first slide.</p>
-        </div>
-      </div>
-      <div class="carousel-item" data-bs-interval="2000">
-        <img src="..." class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Second slide label</h5>
-          <p>Some representative placeholder content for the second slide.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="..." class="d-block w-100" alt="...">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Third slide label</h5>
-          <p>Some representative placeholder content for the third slide.</p>
-        </div>
       </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+  </section>
+
+  <%# --- BOUTONS D'ACTION INFÉRIEURS --- %>
+  <div class="d-flex flex-column gap-3 mb-5">
+    <%= link_to chats_path, class: "btn-historique text-decoration-none text-center" do %>
+      <i class="fa-solid fa-clock-rotate-left me-2"></i> Historique des demandes
+    <% end %>
+
+    <%= link_to "#", class: "btn-urgence text-decoration-none text-center d-flex align-items-center justify-content-center" do %>
+      Une urgence
+      <span class="urgence-badge ms-2">i</span>
+    <% end %>
   </div>
 
-  <div class="d-grid gap-2 col-6 mx-auto mt-4">
-    <button class="btn btn-historique rounded-5" data-coaching-target="startButton"  data-action="click->coaching#start" type="button">Historique</button>
-    <button class="btn btn-historique rounded-5" type="button">Une urgence !</button>
-  </div>
+</main>
