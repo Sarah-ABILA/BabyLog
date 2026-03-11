@@ -104,16 +104,7 @@
     </div>
   </section>
 
-  <%# --- BOUTONS D'ACTION INFÉRIEURS --- %>
-  <div class="d-flex flex-column gap-3 mb-5">
-    <%= link_to chats_path, class: "btn-historique text-decoration-none text-center" do %>
-      <i class="fa-solid fa-clock-rotate-left me-2"></i> Historique des demandes
-    <% end %>
-
-    <%= link_to "#", class: "btn-urgence text-decoration-none text-center d-flex align-items-center justify-content-center" do %>
-      Une urgence
-      <span class="urgence-badge ms-2">i</span>
-    <% end %>
-  </div>
-
-</main>
+<div class="d-grid gap-2 col-6 mx-auto mt-4">
+  <div class="btn btn-historique rounded-5" data-coaching-target="startButton"  data-action="click->coaching#start" type="button"><%= link_to "Historique", chats_path, class: "text-color" %></div>
+  <div class="btn btn-historique rounded-5" data-coaching-target="startButton"  data-action="click->coaching#start" type="button"><%= link_to "Numéros d'urgence", emergencies_path, class: "text-color" %></div>
+</div>

@@ -24,7 +24,7 @@
 <% end %>
 
 <%# ── Historique ── %>
-<% hist_path = defined?(@child) && @child ? child_chats_path(@child) : "#" %>
+<% hist_path = defined?(@child) && @child ? child_chats_path(@child) : "/chats" %>
   <%= link_to hist_path,
   class: "bottom-nav__item #{controller_name == 'chats' ? 'bottom-nav__item--active' : ''} #{hist_path == '#' ? 'bottom-nav__item--disabled' : ''}" do %>
   <svg class="bottom-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -37,14 +37,12 @@
 <% end %>
 
 <%# ── Profil ── %>
-<%= link_to "#",
+<%= link_to user_signed_in? ? edit_user_registration_path : new_user_session_path,
 class: "bottom-nav__item #{controller_name == 'profiles' ? 'bottom-nav__item--active' : ''}" do %>
   <svg class="bottom-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-  <circle cx="12" cy="7" r="4"/>
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+    <circle cx="12" cy="7" r="4"/>
   </svg>
   <span class="bottom-nav__label">Profil</span>
 <% end %>
-
 </nav>
-}
