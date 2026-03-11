@@ -47,20 +47,24 @@
   font-family: $headers-font;
   background: $light-gray;
   border: 1.5px solid #D4B0AA;
+  background: $babylog-pink;
+  border-color: $babylog-warning;
   color: $babylog-warning;
 
   box-shadow: 0 2px 8px rgba(196, 115, 106, 0.08);
 
   &:hover {
-    background: $babylog-pink;
-    border-color: $babylog-warning;
-    color: $babylog-warning;
+    background: $babylog-warning;
+    border-color: $babylog-pink;
+    color: $babylog-pink;
     transform: translateY(-1px);
     box-shadow: 0 4px 14px rgba(196, 115, 106, 0.15);
   }
 
   &:active {
-    background: darken($light-gray, 3%);
-    color: $babylog-warning;
+    // background: darken($light-gray, 3%);
+    background: $babylog-blue;
+    border-color: $babylog-pink;
+    color: $babylog-pink;
   }
 }
