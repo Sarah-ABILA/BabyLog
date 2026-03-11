@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
 
   resources :user_babies, only: [:destroy, :update, :edit, :show]
-
+  resources :emergencies, only: [:index]
   root to: "pages#home"
   get "up" => "rails/health#show", as: :rails_health_check
 

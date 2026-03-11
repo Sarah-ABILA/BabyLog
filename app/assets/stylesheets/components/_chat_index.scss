@@ -1,0 +1,48 @@
+.title {
+  font-weight: 700;
+  text-align: center;
+}
+
+.subtitle {
+  color: black;
+  text-align: center;
+}
+
+/* card */
+.chat-card-link {
+  text-decoration: none;
+  color: #A4514C;
+}
+
+.chat-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 10px 10px 5px grey;
+  transition: all 0.25s ease;
+}
+
+/* header */
+.chat-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* body */
+.chat-card-body h5 {
+  font-weight: 600;
+}
+
+.chat-meta {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* footer */
+.chat-card-footer {
+  margin-top: 10px;
+  font-weight: 500;
+  color: #A4514C;
+}
