@@ -131,7 +131,6 @@ $font-main:  'Nunito', sans-serif !default;
   background: $rose-pale;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-  -webkit-appearance: none;
 
   &::placeholder {
     color: #c8a8a0;
