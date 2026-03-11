@@ -52,7 +52,8 @@ baby_emma = UserBaby.create!(
 puts "--- Création du Chat IA pour Jade ---"
 chat_jade = Chat.create!(
   user: test_user,
-  title: "Analyse sommeil de Jade"
+  title: "Analyse sommeil de Jade",
+  persona: "maman solo"
 )
 
 Message.create!([
