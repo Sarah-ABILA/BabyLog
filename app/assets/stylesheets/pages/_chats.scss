@@ -1,0 +1,166 @@
+/* ===== PAGE CHAT ===== */
+.chat-page {
+  background: #f6f3f1;
+  min-height: 100vh;
+  padding: 24px 16px 48px;
+}
+
+.chat-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ===== HEADER CHAT ===== */
+.chat-header-card {
+  background: #ffffff;
+  border: 1px solid rgba(191, 120, 138, 0.2);
+  border-radius: 24px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+}
+
+.chat-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: #5c4a4f;
+}
+
+.chat-persona {
+  font-size: 16px;
+  color: #7d6a70;
+  margin-top: 6px;
+}
+
+/* ===== INFO BEBE ===== */
+.baby-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.baby-pill {
+  display: inline-block;
+  background: #f8eef1;
+  color: #8d616d;
+  border: 1px solid rgba(191, 120, 138, 0.18);
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+/* ===== CARTE CHAT ===== */
+.chat-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+  border: 1px solid rgba(191,120,138,0.12);
+}
+
+/* ===== MESSAGES ===== */
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.message {
+  display: flex;
+}
+
+.message-user {
+  justify-content: flex-end;
+}
+
+.message-ai {
+  justify-content: flex-start;
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 14px 18px;
+  border-radius: 16px;
+  line-height: 1.5;
+}
+
+.message-user .message-bubble {
+  background: #bf788a;
+  color: white;
+}
+
+.message-ai .message-bubble {
+  background: #f2ecee;
+  color: #5f4f55;
+}
+
+/* ===== INPUT CHAT ===== */
+.chat-input {
+  display: flex;
+  gap: 12px;
+}
+
+.chat-text-input {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(191,120,138,0.25);
+  font-size: 15px;
+}
+
+.chat-send-btn {
+  background: #bf788a;
+  color: white;
+  border: none;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chat-send-btn:hover {
+  background: #ab6677;
+}
+
+/* ===== BOUTON GENERER RESULTAT ===== */
+.chat-actions {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.generate-plan-btn {
+  background: #bf788a;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 16px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.generate-plan-btn:hover {
+  background: #ab6677;
+}
+
+/* ===== BOUTON RETOUR HOME ===== */
+.back-home {
+  margin-top: 26px;
+  text-align: center;
+}
+
+.home-link-btn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 14px 26px;
+  border-radius: 14px;
+  border: 1px solid rgba(191,120,138,0.35);
+  color: #a06b78;
+  background: transparent;
+}
+
+.home-link-btn:hover {
+  background: rgba(191,120,138,0.06);
+}

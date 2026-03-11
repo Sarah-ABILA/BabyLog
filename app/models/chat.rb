@@ -3,6 +3,9 @@ class Chat < ApplicationRecord
   belongs_to :user
   has_one :result, dependent: :destroy
 
+  validates :title, presence: true
+  validates :persona, presence: true
+
   DEFAULT_TITLE = "Untitled"
   TITLE_PROMPT = <<~PROMPT
     Generate a short, descriptive, 3-to-5-word title that summarizes the user question for a chat conversation.
@@ -16,8 +19,5 @@ class Chat < ApplicationRecord
 
     response = RubyLLM.chat.with_instructions(TITLE_PROMPT).ask(first_user_message.content)
     update(title: response.content)
-
-    validates :title, presence: true
-    validates :persona, presence: true
   end
 end

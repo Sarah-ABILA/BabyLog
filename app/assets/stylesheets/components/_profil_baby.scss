@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyLog — Profil enfant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --rose:       #C4736A;
+        --rose-light: #E8A89F;
+        --rose-pale:  #F5EDE8;
+        --rose-deep:  #8B5E5A;
+        --beige:      #F0E4DE;
+        --text-dark:  #3D2B2B;
+        --text-mid:   #7A5A5A;
+        --text-light: #B09090;
+        --white:      #FFFFFF;
+      }
+
+      body {
+        background: var(--beige);
+        font-family: 'Nunito', sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 0 0 80px;
+      }
+
+      .phone {
+        width: 100%;
+        max-width: 390px;
+        position: relative;
+      }
+
+      /* ── HEADER ─────────────────────────────────────── */
+      .profile-header {
+        position: relative;
+        height: 180px;
+        background: linear-gradient(160deg, var(--rose-deep) 0%, var(--rose) 60%, var(--rose-light) 100%);
+        border-radius: 0 0 32px 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        padding-bottom: 52px; /* espace pour l'avatar qui déborde */
+        overflow: visible;
+      }
+
+      .profile-header__back {
+        position: absolute;
+        top: 18px;
+        left: 16px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+        text-decoration: none;
+        backdrop-filter: blur(4px);
+      }
+
+      .profile-header__title {
+        color: white;
+        font-size: 18px;
+        font-weight: 900;
+        letter-spacing: 0.2px;
+      }
+
+      /* Avatar — chevauche le bas du header */
+      .profile-header__avatar {
+        position: absolute;
+        bottom: -44px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        background: linear-gradient(140deg, #ecc8bc, #d4a090);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 42px;
+        border: 4px solid var(--beige);
+        box-shadow: 0 6px 20px rgba(139, 94, 90, 0.25);
+        z-index: 2;
+      }
+
+      /* ── BODY ───────────────────────────────────────── */
+      .profile-body {
+        padding: 60px 16px 24px; /* 60px = espace avatar */
+      }
+
+      /* Nom + âge centrés */
+      .profile-name {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .profile-name h2 {
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--text-dark);
+        line-height: 1.2;
+      }
+
+      .profile-name .age-badge {
+        display: inline-block;
+        background: rgba(196, 115, 106, 0.13);
+        color: var(--rose-deep);
+        font-size: 12px;
+        font-weight: 800;
+        padding: 3px 12px;
+        border-radius: 20px;
+        margin-top: 6px;
+      }
+
+      /* ── CARD FORMULAIRE ─────────────────────────────── */
+      .profile-card {
+        background: var(--white);
+        border-radius: 22px;
+        padding: 22px 18px 18px;
+        box-shadow:
+          0 4px 24px rgba(196, 115, 106, 0.11),
+          0 1px 3px rgba(196, 115, 106, 0.06);
+      }
+
+      .profile-card__section-title {
+        font-size: 11px;
+        font-weight: 900;
+        color: var(--rose);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 14px;
+      }
+
+      /* ── CHAMPS ─────────────────────────────────────── */
+      .form-field {
+        margin-bottom: 14px;
+      }
+
+      .form-field label {
+        display: block;
+        font-size: 10px;
+        font-weight: 800;
+        color: var(--text-light);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 5px;
+      }
+
+      .form-field .input-wrap {
+        position: relative;
+      }
+
+      .form-field .input-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 14px;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .form-field input {
+        width: 100%;
+        padding: 12px 14px 12px 38px;
+        border: 1.5px solid #e8d0c8;
+        border-radius: 12px;
+        font-family: 'Nunito', sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-dark);
+        background: var(--rose-pale);
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+        -webkit-appearance: none;
+      }
+
+      .form-field input::placeholder { color: #c8a8a0; font-weight: 500; }
+
+      .form-field input:focus {
+        border-color: var(--rose);
+        background: var(--white);
+        box-shadow: 0 0 0 3px rgba(196, 115, 106, 0.12);
+      }
+
+      .form-field .input-suffix {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--rose-deep);
+        pointer-events: none;
+      }
+
+      .form-field input.with-suffix { padding-right: 36px; }
+
+      .form-field .hint {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--rose-light);
+        font-style: italic;
+        margin-top: 3px;
+        padding-left: 2px;
+        display: block;
+      }
+
+      /* ── SÉPARATEUR ─────────────────────────────────── */
+      .form-divider {
+        height: 1px;
+        background: linear-gradient(to right, transparent, #e8d0c8, transparent);
+        margin: 16px 0;
+      }
+
+      /* ── BOUTON ─────────────────────────────────────── */
+      .btn-submit {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 50px;
+        background: linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+        color: white;
+        font-family: 'Nunito', sans-serif;
+        font-size: 15px;
+        font-weight: 900;
+        cursor: pointer;
+        transition: transform 0.15s, box-shadow 0.2s;
+        box-shadow: 0 4px 14px rgba(196, 115, 106, 0.35);
+      }
+
+      .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(196,115,106,0.4); }
+      .btn-submit:active { transform: translateY(0); }
+
+      /* ── BOUTON SUPPRIMER ───────────────────────────── */
+      .btn-danger {
+        width: 100%;
+        padding: 12px;
+        border: 1.5px solid #e8c4c0;
+        border-radius: 50px;
+        background: transparent;
+        color: #c0504a;
+        font-family: 'Nunito', sans-serif;
+        font-size: 13px;
+        font-weight: 800;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: background 0.2s, color 0.2s;
+      }
+
+      .btn-danger:hover { background: #fdf0ef; }
+
+      /* ── NOTE ───────────────────────────────────────── */
+      .form-note {
+        text-align: center;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-light);
+        margin-top: 12px;
+      }
+
+      /* ── BOTTOM NAV (déco) ──────────────────────────── */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 390px;
+        background: #f0e4de;
+        border-top: 1px solid rgba(196,115,106,0.12);
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 8px 18px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        flex: 1;
+        text-decoration: none;
+        color: #B09090;
+        font-size: 9px;
+        font-weight: 700;
+      }
+
+      .nav-item svg { width: 22px; height: 22px; stroke: currentColor; }
+      .nav-item--active { color: var(--rose); }
+      .nav-item--active svg { stroke: var(--rose); }
+    </style>
+  </head>
+  <body>
+  <div class="phone">
+
+    <!-- Header avec avatar -->
+    <div class="profile-header">
+      <a href="#" class="profile-header__back">‹</a>
+      <span class="profile-header__title">Profil de bébé</span>
+      <div class="profile-header__avatar">👶</div>
+    </div>
+
+    <div class="profile-body">
+
+      <!-- Nom + âge -->
+      <div class="profile-name">
+        <h2>Emma</h2>
+        <span class="age-badge">8 mois</span>
+      </div>
+
+      <!-- Card formulaire -->
+      <div class="profile-card">
+        <p class="profile-card__section-title">Informations</p>
+
+        <!-- Prénom -->
+        <div class="form-field">
+          <label>Prénom</label>
+          <div class="input-wrap">
+            <span class="input-icon">✏️</span>
+            <input type="text" value="Emma" placeholder="Ex : Emma">
+          </div>
+        </div>
+
+        <!-- Date de naissance -->
+        <div class="form-field">
+          <label>Date de naissance</label>
+          <div class="input-wrap">
+            <span class="input-icon">🎂</span>
+            <input type="date" value="2024-07-11">
+          </div>
+        </div>
+
+        <!-- Poids -->
+        <div class="form-field">
+          <label>Poids</label>
+          <div class="input-wrap">
+            <span class="input-icon">⚖️</span>
+            <input type="number" value="7.8" step="0.1" class="with-suffix">
+            <span class="input-suffix">kg</span>
+          </div>
+        </div>
+
+        <!-- Médecin traitant -->
+        <div class="form-field">
+          <label>Médecin traitant</label>
+          <div class="input-wrap">
+            <span class="input-icon">🩺</span>
+            <input type="text" value="Dr. Martin" placeholder="Ex : Dr. Dupont">
+          </div>
+          <span class="hint">Facultatif</span>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <button class="btn-submit">Mettre à jour 💾</button>
+        <button class="btn-danger">🗑 Supprimer ce profil</button>
+
+      </div>
+
+      <p class="form-note">Les modifications sont sauvegardées immédiatement</p>
+    </div>
+
+    <!-- Bottom nav -->
+    <nav class="bottom-nav">
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>
+        Page d'accueil
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/><polyline points="9 11 12 14 22 4"/></svg>
+        Suivi vaccins
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Historique
+      </a>
+      <a href="#" class="nav-item nav-item--active">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Profil
+      </a>
+    </nav>
+
+  </div>
+  </body>
+</html>

@@ -1,1 +1,94 @@
 <h1>Formulaire pour ajouter un bébé</h1>
+<div class="new-baby-page">
+
+  <%# ── En-tête de page ── %>
+  <div class="new-baby-page__header">
+    <%= link_to root_path, class: "new-baby-page__back" do %>
+      ‹ Retour
+    <% end %>
+    <h1 class="new-baby-page__title">Ajouter un enfant</h1>
+    <p class="new-baby-page__subtitle">Ces informations nous aideront à personnaliser les conseils de BabyLog</p>
+  </div>
+
+  <%# ── Formulaire ── %>
+  <div class="new-baby-page__card">
+
+    <%# Illustration en haut de la card %>
+    <div class="new-baby-page__illustration">
+      <div class="new-baby-page__avatar-placeholder">👶</div>
+    </div>
+
+    <%= simple_form_for @user_baby, url: user_babies_path, method: :post do |f| %>
+
+      <%# ── Prénom ── %>
+      <div class="form-field">
+        <%= f.label :name, "Prénom de bébé", class: "form-field__label" %>
+        <div class="form-field__wrap">
+          <span class="form-field__icon">✏️</span>
+          <%= f.input_field :name,
+                placeholder: "Ex : Emma",
+                class: "form-field__input",
+                required: true,
+                autocomplete: "off" %>
+        </div>
+        <%= f.error :name, class: "form-field__error" %>
+      </div>
+
+      <%# ── Date de naissance ── %>
+      <div class="form-field">
+        <%= f.label :birth_date, "Date de naissance", class: "form-field__label" %>
+        <div class="form-field__wrap">
+          <span class="form-field__icon">🎂</span>
+          <%= f.input_field :birth_date,
+                as: :date,
+                class: "form-field__input",
+                required: true %>
+        </div>
+        <%= f.error :birth_date, class: "form-field__error" %>
+      </div>
+
+      <%# ── Poids ── %>
+      <div class="form-field">
+        <%= f.label :weight, "Poids", class: "form-field__label" %>
+        <div class="form-field__wrap">
+          <span class="form-field__icon">⚖️</span>
+          <%= f.input_field :weight,
+                as: :decimal,
+                placeholder: "Ex : 8.4",
+                step: "0.1",
+                min: "0",
+                max: "30",
+                class: "form-field__input form-field__input--with-suffix",
+                required: true %>
+          <span class="form-field__suffix">kg</span>
+        </div>
+        <%= f.error :weight, class: "form-field__error" %>
+      </div>
+
+      <%# ── Médecin traitant ── %>
+      <div class="form-field">
+        <%= f.label :doctor, "Médecin traitant", class: "form-field__label" %>
+        <div class="form-field__wrap">
+          <span class="form-field__icon">🩺</span>
+          <%= f.input_field :doctor,
+                placeholder: "Ex : Dr. Dupont",
+                class: "form-field__input",
+                autocomplete: "off" %>
+        </div>
+        <%# Pas required — le médecin est facultatif %>
+        <span class="form-field__hint">Facultatif</span>
+        <%= f.error :doctor, class: "form-field__error" %>
+      </div>
+
+      <%# ── Séparateur ── %>
+      <div class="form-divider"></div>
+
+      <%# ── Submit ── %>
+      <%= f.submit "Enregistrer bébé 💾", class: "btn-submit" %>
+
+    <% end %>
+
+    <p class="form-note">Vous pourrez modifier ces informations à tout moment</p>
+
+  </div>
+</div>

@@ -49,6 +49,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_11_142819) do
     t.string "avatar"
     t.date "birth_date"
     t.datetime "created_at", null: false
+    t.string "doctor"
     t.string "name"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false

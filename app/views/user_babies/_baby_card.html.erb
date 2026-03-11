@@ -1,0 +1,24 @@
+<div class="carousel-item <%= 'active' if baby_counter == 0 %>">
+  <div class="baby-card-container p-4 m-3 bg-white rounded-5 shadow-sm text-center border">
+    <% if baby.avatar.present? %>
+      <%= image_tag baby.avatar, class: "avatar mb-3", style: "width: 80px; height: 80px; object-fit: cover; border-radius: 50%;" %>
+    <% end %>
+
+    <h5 class="fw-bold text-babylog-warning"><%= baby.name %></h5>
+
+    <div class="d-flex justify-content-around my-3">
+      <div class="text-center">
+        <small class="text-muted d-block">Âge</small>
+        <span class="fw-bold"><%= distance_of_time_in_words(Date.today, baby.birth_date) %></span>
+      </div>
+      <div class="text-center">
+        <small class="text-muted d-block">Poids</small>
+        <span class="fw-bold"><%= baby.weight %> kg</span>
+      </div>
+    </div>
+
+    <div class="d-grid gap-2">
+      <%= link_to "Voir l'historique", chat_path(baby.chats.last || root_path), class: "btn btn-historique rounded-pill" %>
+    </div>
+  </div>
+</div>

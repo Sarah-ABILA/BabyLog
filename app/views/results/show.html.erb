@@ -1,1 +1,67 @@
-<h1>Bilan Step by Step de la conversation avec L'ia</h1>
+<!-- affiche le partial _title -->
+<%= render "title" %>
+
+<div class="result-page">
+  <div class="result-wrapper">
+
+    <!-- affiche les infos du chat : titre, persona, infos bébé -->
+    <div class="result-header-card">
+      <p class="result-label">Plan d'action personnalisé</p>
+
+      <h2 class="chat-title"><%= @chat.title %></h2>
+
+      <p class="chat-persona">
+        Profil : <strong><%= @chat.persona %></strong>
+      </p>
+      
+      <!-- vérifie la présence de bébé.s pour un user -->
+      <% if current_user.user_babies.any? %>
+        <!-- .last affiche le dernier bébé enregistré -->
+        <% baby = current_user.user_babies.last %>
+        <!-- âge calculé du bébé à partir de sa birth_date -->
+        <% age_in_months = ((Date.current.year * 12 + Date.current.month) - (baby.birth_date.year * 12 + baby.birth_date.month)) %>
+
+        <div class="baby-info">
+          <span class="baby-pill">
+            Bébé : <strong><%= baby.name %></strong>
+          </span>
+
+          <span class="baby-pill">
+            Âge :
+            <!-- <strong><%= baby.birth_date.strftime("%d/%m/%Y") %></strong> -->
+            <!-- âge calculé du bébé à partir de sa birth_date -->
+          <strong><%= age_in_months <= 1 ? "#{age_in_months} mois" : "#{age_in_months} mois" %></strong>
+          </span>
+
+          <span class="baby-pill">
+            Poids :
+            <strong><%= baby.weight %> kg</strong>
+          </span>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- l'IA renvoit déjà du html, avec <%= @result.roadmap %>, Rails affiche les balises comme du texte ; avec hmtl_safe cela rend pour de vrai le contenu HTML -->
+    <div class="result-card">
+      <%= @result.roadmap.html_safe %>
+    </div>
+    
+    <!-- retour conversations -->
+    <div class="result-actions">
+      <%= link_to chats_path, class: "result-btn secondary-btn" do %>
+        ← Mes conversations
+      <% end %>
+      
+      <!-- imprimer -->
+      <button class="result-btn primary-btn" onclick="window.print()">
+        Imprimer le plan
+      </button>
+    </div>
+    
+    <!-- retour accueil -->
+    <div class="back-home">
+      <%= link_to "Retour à l'accueil", root_path, class: "home-link-btn" %>
+    </div>
+
+  </div>
+</div>
