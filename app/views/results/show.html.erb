@@ -9,10 +9,6 @@
       <p class="result-label">Plan d'action personnalisé</p>
 
       <h2 class="chat-title"><%= @chat.title %></h2>
-
-      <p class="chat-persona">
-        Profil : <strong><%= @chat.persona %></strong>
-      </p>
       
       <!-- vérifie la présence de bébé.s pour un user -->
       <% if current_user.user_babies.any? %>
