@@ -1,4 +1,4 @@
-<h1>Formulaire pour ajouter un bébé</h1>
+
 <div class="new-baby-page">
 
   <%# ── En-tête de page ── %>
@@ -18,7 +18,7 @@
       <div class="new-baby-page__avatar-placeholder">👶</div>
     </div>
 
-    <%= simple_form_for @baby, url: user_babies_path, method: :post do |f| %>
+    <%= simple_form_for @user_baby, url: user_babies_path, method: :post do |f| %>
 
       <%# ── Prénom ── %>
       <div class="form-field">
