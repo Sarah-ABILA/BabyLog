@@ -1,0 +1,137 @@
+.question-baby {
+  font-family: 'Georgia', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #5a3e6b;
+  text-align: center;
+  letter-spacing: 0.03em;
+  position: relative;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+.button-of-baby {
+  display: inline-block;
+  padding: 12px 32px;
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #8B5E57;
+  background: linear-gradient(135deg, #f9ede9, #fde8e4);
+  border: 2px solid #E8A89F;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 12px rgba(232, 168, 159, 0.25);
+  margin: 8px;
+}
+
+.button-of-baby:hover {
+  background: linear-gradient(135deg, #E8A89F, #f0c4bc);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 6px 18px rgba(232, 168, 159, 0.45);
+  transform: translateY(-2px);
+}
+
+.button-of-baby:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 8px rgba(232, 168, 159, 0.3);
+}
+
+.btn-delete-chat {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+}
+
+.btn-delete-chat:hover {
+  opacity: 1;
+}
+
+.chat-card {
+  position: relative; /* indispensable pour le bouton en absolute */
+}
+
+.chat-card {
+  position: relative;
+  background: linear-gradient(135deg, #fdf6f4, #fde8e4);
+  border: 1.5px solid #E8A89F;
+  border-radius: 20px;
+  box-shadow: 10px 10px 5px grey;
+  transition: all 0.25s ease;
+  overflow: hidden;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.chat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(232, 168, 159, 0.4);
+  border-color: #d4877d;
+}
+
+.chat-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 8px 12px;
+}
+
+.chat-card-header {
+  margin-bottom: 10px;
+}
+
+.chat-card-header h5 {
+  font-family: 'Georgia', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #8B5E57;
+  margin: 0;
+}
+
+.chat-card-body .chat-meta {
+  font-size: 0.85rem;
+  color: #b08880;
+  margin: 0;
+}
+
+.chat-card-footer {
+  margin-top: 2px;
+  padding-top: 2px;
+  border-top: 1px solid rgba(232, 168, 159, 0.3);
+}
+
+.chat-card-footer span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #E8A89F;
+  letter-spacing: 0.03em;
+}
+
+.chat-card:hover .chat-card-footer span {
+  color: #d4877d;
+}
+
+.btn-delete-chat {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  opacity: 0.35;
+  transition: opacity 0.2s ease;
+  padding: 0;
+}
+
+.btn-delete-chat:hover {
+  opacity: 1;
+}
