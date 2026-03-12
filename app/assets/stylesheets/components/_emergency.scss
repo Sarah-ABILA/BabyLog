@@ -1,13 +1,19 @@
 .card-emergency {
-  display: inline-flex;
-  min-width: 65%;
+  display: flex;
+  width: 300px;
+  height: 60px;
   align-items: center;
   justify-content: center;
-  padding: 26px 26px 10px;
+  margin: 0 auto;
   font-family: $headers-font;
   border: 1.5px solid #D4B0AA;
   background: $babylog-pink;
   border-color: $babylog-warning;
   color: $babylog-warning;
-  box-shadow: 10px 10px 5px grey;
+  box-shadow: 10px 10px 5px #da938a57;
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
 }
