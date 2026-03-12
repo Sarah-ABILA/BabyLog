@@ -1,6 +1,6 @@
 class ChatsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_chat, only: [:show]
+  before_action :set_chat, only: %i[show]
   def index
     @chats = current_user.chats
   end
@@ -17,11 +17,11 @@ class ChatsController < ApplicationController
   end
 
   def create
-    @chat = Chat.new(chat_params)
+    @chat = Chat.new
     @chat.user = current_user
+    @chat.user_baby_id = params[:user_baby_id]
     @chat.persona = params[:persona]
-    @chat.title = Chat::DEFAULT_TITLE # On initialise avec le titre par défaut
-    # @chat = current_user.chats.new(chat_params) # en 1 ligne
+    @chat.title = Chat::DEFAULT_TITLE
     if @chat.save
       redirect_to chat_path(@chat)
     else
@@ -36,6 +36,6 @@ class ChatsController < ApplicationController
   end
 
   def chat_params
-    params.require(:chat).permit(:title)
+    params.permit(:title, :user_baby_id, :persona)
   end
 end

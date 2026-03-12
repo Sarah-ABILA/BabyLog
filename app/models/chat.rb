@@ -1,6 +1,7 @@
 class Chat < ApplicationRecord
   has_many :messages, dependent: :destroy
   belongs_to :user
+  belongs_to :user_baby
   has_one :result, dependent: :destroy
 
   validates :title, presence: true
