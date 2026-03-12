@@ -25,7 +25,6 @@
 </section>
 
 <%# === SECTION BODY (Carrousel & Actions) === %>
-<main class="home-body container">
 
   <%# --- CARROUSEL "MES ENFANTS" --- %>
   <section class="children-carousel mb-5" data-controller="carousel">
@@ -60,7 +59,9 @@
                   <% if baby.avatar.present? %>
                     <%= image_tag baby.avatar, class: "child-card__avatar-img" %>
                   <% else %>
-                    <span class="child-card__avatar-emoji">:baby:</span>
+                    <div class="new-baby-page__illustration">
+                      <div class="new-baby-page__avatar-placeholder">:baby:</div>
+                    </div>
                   <% end %>
                 </div>
 
@@ -101,6 +102,14 @@
         </div>
 
       </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
   </section>
 
