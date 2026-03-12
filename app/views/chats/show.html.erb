@@ -7,10 +7,6 @@
     <div class="chat-header-card">
       <h2 class="chat-title"><%= @chat.title %></h2>
 
-      <p class="chat-persona">
-        Profil : <strong><%= @chat.persona %></strong>
-      </p>
-
       <% if current_user.user_babies.any? %>
         <% baby = current_user.user_babies.last %>
         <% age_in_months = ((Date.current.year * 12 + Date.current.month) - (baby.birth_date.year * 12 + baby.birth_date.month)) %>
@@ -63,15 +59,14 @@
       <!-- ===== FORM MESSAGE ===== -->
       <div class="chat-input">
 
-        <%= form_with url: chat_messages_path(@chat), method: :post, local: true do |f| %>
+        <%= form_with model: [@chat, Message.new], local: true do |f| %>
 
-          <%= text_field_tag :content,
-            nil,
+          <%= f.text_field :content,
             placeholder: "Posez votre question...",
             class: "chat-text-input"
           %>
 
-          <%= submit_tag "Envoyer", class: "chat-send-btn" %>
+          <%= f.submit "Envoyer", class: "chat-send-btn" %>
 
         <% end %>
 
