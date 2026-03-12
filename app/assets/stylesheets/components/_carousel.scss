@@ -1,296 +1,194 @@
 // ============================================================
-// BabyLog — _carousel.scss
-// Carrousel "Mes enfants" — page d'accueil
+// BabyLog — _carousel.scss (Version Finale Corrigée & Centrée)
 // ============================================================
 
-// ── Variables (reprend _variables.scss) ───────────────────
-$rose:        #C4736A !default;
-$rose-light:  #E8A89F !default;
-$rose-pale:   #F5EDE8 !default;
-$rose-deep:   #8B5E5A !default;
-$text-dark:   #3D2B2B !default;
-$text-light:  #B09090 !default;
-$white:       #FFFFFF !default;
-$font-main:   'Nunito', sans-serif !default;
+$rose:        #C4736A;
+$rose-light:  #E8A89F;
+$rose-pale:   #F5EDE8;
+$rose-deep:   #8B5E5A;
+$text-dark:   #3D2B2B;
+$text-light:  #B09090;
+$white:       #FFFFFF;
+$font-main:   'Nunito', sans-serif;
+$carousel-speed: 0.4s;
 
-// ── Durée d'animation ─────────────────────────────────────
-$carousel-speed: 0.38s;
-
-
-// ════════════════════════════════════════════════════════════
-// SECTION WRAPPER
-// ════════════════════════════════════════════════════════════
-
+// ── WRAPPER GLOBAL ───────────────────────────────────────
 .children-carousel {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 0; // le padding horizontal est géré par .body dans la home
+  width: 100%;
+  overflow: hidden; // Coupe ce qui dépasse à droite
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
-
-// ════════════════════════════════════════════════════════════
-// HEADER : titre + dots
-// ════════════════════════════════════════════════════════════
-
+// ── EN-TÊTE (Titre + Dots) ───────────────────────────────
 .children-carousel__header {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  width: 90%;        // Même largeur que le Hero
+  margin: 0 auto 15px auto; // Centré horizontalement
 }
 
 .children-carousel__title {
   font-family: $font-main;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 800;
   color: $text-dark;
-  letter-spacing: 0.1px;
-  flex-shrink: 0;
+  margin: 0;
 }
 
 .children-carousel__dots {
   display: flex;
-  gap: 5px;
-  align-items: center;
+  gap: 6px;
 }
 
-// ── Dot individuel ────────────────────────────────────────
 .carousel-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: #D4B0AA;
   border: none;
-  padding: 0;
   cursor: pointer;
-  transition:
-    background $carousel-speed ease,
-    transform  $carousel-speed ease,
-    width      $carousel-speed ease;
+  transition: all $carousel-speed ease;
 
   &--active {
     background: $rose;
-    transform: scale(1.15);
-    width: 20px;           // dot actif s'étire en pilule
+    width: 20px;
     border-radius: 50px;
-  }
-
-  &:hover:not(&--active) {
-    background: $rose-light;
-    transform: scale(1.05);
   }
 }
 
-
-// ════════════════════════════════════════════════════════════
-// PISTE : overflow scroll-snap
-// ════════════════════════════════════════════════════════════
-
+// ── TRACK (La piste de défilement) ────────────────────────
 .children-carousel__track-wrapper {
-  overflow: hidden;           // masque ce qui déborde
-  border-radius: 18px;        // arrondi visible
+  position: relative;
+  width: 90%;
+  overflow: visible; // Permet de voir la carte suivante qui dépasse
 }
 
 .children-carousel__track {
   display: flex;
+  padding-left: 5%; // Aligne la 1ère carte sur le bord du titre (5% marge + 90% corps)
   gap: 12px;
-  transition: transform $carousel-speed cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform $carousel-speed cubic-bezier(0.25, 1, 0.5, 1);
   will-change: transform;
-
-  // Scroll natif en fallback (si JS désactivé)
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
 }
 
-// ── Slide ─────────────────────────────────────────────────
 .children-carousel__slide {
-  flex: 0 0 100%;            // 1 card = toute la largeur
-  scroll-snap-align: start;
+  flex: 0 0 85%;   // Largeur de la carte (85% de l'écran)
+  width: 85%;
+  box-sizing: border-box;
+  margin-left: 0;  // FIX: On supprime la marge ici, le padding-left du track suffit
 
-  &--empty {
-    opacity: 0.7;
+  &:last-child {
+    padding-right: 5%; // Espace pour ne pas coller au bord à la fin du swipe
   }
 }
 
-
-// ════════════════════════════════════════════════════════════
-// CHILD CARD
-// ════════════════════════════════════════════════════════════
-
+// ── CHILD CARD (Le Design) ───────────────────────────────
 .child-card {
   background: $white;
-  border-radius: 18px;
-  padding: 14px 16px;
+  border-radius: 20px;
+  padding: 16px;
   display: flex;
   align-items: center;
-  gap: 14px;
-  box-shadow:
-    0 2px 14px rgba(196, 115, 106, 0.10),
-    0 0 0 1px rgba(196, 115, 106, 0.05);
+  gap: 15px;
+  box-shadow: 0 4px 15px rgba(196, 115, 106, 0.08);
   text-decoration: none;
-  cursor: pointer;
-  transition:
-    transform  0.2s ease,
-    box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow:
-      0 6px 22px rgba(196, 115, 106, 0.18),
-      0 0 0 1px rgba(196, 115, 106, 0.08);
-  }
+  &:active { transform: scale(0.98); }
 
-  &:active {
-    transform: translateY(0);
-  }
-
-  // Variante vide
   &--empty {
     border: 1.5px dashed #D4B0AA;
-    box-shadow: none;
     background: $rose-pale;
-
-    &:hover {
-      border-color: $rose;
-      box-shadow: 0 4px 14px rgba(196, 115, 106, 0.12);
-    }
   }
 }
 
-// ── Avatar ────────────────────────────────────────────────
 .child-card__avatar {
-  width: 52px;
-  height: 52px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   background: linear-gradient(140deg, #ECC8BC, #D4A090);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 2.5px solid $rose-pale;
-  box-shadow: 0 2px 8px rgba(196, 115, 106, 0.18);
-  overflow: hidden;
-
-  &--empty {
-    background: rgba(196, 115, 106, 0.12);
-    border-color: #D4B0AA;
-    border-style: dashed;
-  }
+  border: 2px solid white;
 }
 
-.child-card__avatar-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
+.child-card__avatar-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.child-card__avatar-emoji { font-size: 24px; }
 
-.child-card__avatar-emoji {
-  font-size: 26px;
-  line-height: 1;
-}
-
-// ── Infos ─────────────────────────────────────────────────
 .child-card__info {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  overflow: hidden;
+}
+
+.child-card__value {
+  font-size: 15px;
+  font-weight: 800;
+  color: $text-dark;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.child-card__label {
+  font-size: 10px;
+  font-weight: 700;
+  color: $text-light;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .child-card__row {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  margin-top: 6px;
 }
 
-.child-card__label {
-  font-size: 11px;
-  font-weight: 700;
-  color: $text-light;
-  letter-spacing: 0.2px;
-}
-
-.child-card__value {
-  font-size: 14px;
-  font-weight: 800;
-  color: $text-dark;
-}
-
-// ── Flèche ────────────────────────────────────────────────
 .child-card__arrow {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  border: 2px solid #E8C4B8;
+  border: 1.5px solid #E8C4B8;
   display: flex;
   align-items: center;
   justify-content: center;
   color: $rose;
-  font-size: 18px;
-  font-weight: 300;
   flex-shrink: 0;
-  text-decoration: none;
-  transition: background 0.2s, border-color 0.2s;
-
-  .child-card:hover & {
-    background: $rose-pale;
-    border-color: $rose-light;
-  }
 
   &--add {
     background: $rose;
-    border-color: $rose;
     color: $white;
-    font-size: 14px;
-    font-weight: 800;
+    border: none;
   }
 }
 
-
-// ════════════════════════════════════════════════════════════
-// BOUTON "AJOUTER UN ENFANT" (sous le carrousel)
-// ════════════════════════════════════════════════════════════
-
-.children-carousel__add {
+// ── BOUTONS NAVIGATION (Flèches) ─────────────────────────
+.custom-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(white, 0.9);
+  backdrop-filter: blur(4px);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  border: none;
+  z-index: 10;
   display: flex;
-  justify-content: center;
-}
-
-.btn-add-child {
-  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: $white;
-  border: 1.5px solid #D4B0AA;
-  color: $rose-deep;
-  font-family: $font-main;
-  font-size: 13px;
-  font-weight: 800;
-  padding: 9px 20px;
-  border-radius: 50px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 6px rgba(196, 115, 106, 0.08);
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 
-  &__icon {
-    font-size: 15px;
-    line-height: 1;
-    color: $rose;
-  }
+  &.carousel-control-prev { left: 10px; }
+  &.carousel-control-next { right: 10px; }
 
-  &:hover {
-    background: $rose-pale;
-    border-color: $rose;
-    color: $rose;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(196, 115, 106, 0.15);
-  }
-
-  &:active {
-    transform: translateY(0);
+  // Masquées sur mobile si tu préfères le swipe pur
+  @media (max-width: 400px) {
+    display: none;
   }
 }

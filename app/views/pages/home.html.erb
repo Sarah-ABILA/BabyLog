@@ -1,120 +1,102 @@
-<%# app/views/pages/home.html.erb %>
-
 <%# === SECTION HERO === %>
 <section class="hero-container text-center position-relative mb-5 rounded-5">
   <div class="hero-content">
-    <%# Affichage du logo via les assets Rails %>
     <div class="col mb-3">
       <%= image_tag "Logo.png", alt: "logo babylog", class: "avatar-logo", style: "width: 80px;" %>
     </div>
-
-    <h1 class="hero-tagline">
-      Moins de doutes,<br>
-      <em>Plus de clarté.</em>
-    </h1>
-
-    <p class="fw-semibold text-muted">Votre compagnon parentalité intelligent.</p>
-
-    <%# Bouton principal avec contrôleur de coaching si tu souhaites garder l'animation %>
+    <h1 class="hero-tagline">Moins de doutes,<br><em>Plus de clarté.</em></h1>
+    <p class="text-value">Votre compagnon parentalité intelligent.</p>
     <div class="mt-4 text-center" data-controller="coaching">
-      <%= link_to "Posez votre question", new_chat_path, method: :post, params: {persona: "default"},
+      <%= link_to "Posez votre question", new_chat_path,
           class: "btn-question shadow-lg",
           data: { coaching_target: "startButton", action: "click->coaching#start" } %>
     </div>
   </div>
 </section>
 
-<%# === SECTION BODY (Carrousel & Actions) === %>
-
-  <%# --- CARROUSEL "MES ENFANTS" --- %>
-  <section class="children-carousel mb-5" data-controller="carousel">
-
-    <div class="children-carousel__header mb-3 d-flex align-items-center justify-content-between">
-      <h2 class="children-carousel__title m-0">Mes enfants</h2>
-
-      <div class="children-carousel__dots" data-carousel-target="dots">
-        <%# Sécurité : On compte 0 si l'utilisateur n'est pas connecté %>
-        <% babies_count = user_signed_in? ? current_user.user_babies.count : 0 %>
-        <% total_slides = babies_count + 1 %>
-
-        <% total_slides.times do |i| %>
-          <button class="carousel-dot <%= 'carousel-dot--active' if i == 0 %>"
-                  data-action="click->carousel#goTo"
-                  data-index="<%= i %>"
-                  aria-label="Slide <%= i + 1 %>">
-          </button>
-        <% end %>
-      </div>
+<%# === SECTION CARROUSEL === %>
+<section class="children-carousel mb-5" data-controller="carousel">
+  <div class="children-carousel__header mb-3 d-flex align-items-center justify-content-between">
+    <h2 class="children-carousel__title m-0">Mes enfants</h2>
+    <div class="children-carousel__dots" data-carousel-target="dots">
+      <% babies_count = user_signed_in? ? current_user.user_babies.count : 0 %>
+      <% (babies_count + 1).times do |i| %>
+        <button class="carousel-dot <%= 'carousel-dot--active' if i == 0 %>"
+                data-action="click->carousel#goTo"
+                data-index="<%= i %>"
+                aria-label="Slide <%= i + 1 %>">
+        </button>
+      <% end %>
+      <% total_slides = babies_count + 1 %>
     </div>
+  </div>
 
-    <div class="children-carousel__track-wrapper">
-      <div class="children-carousel__track" data-carousel-target="track">
+  <div class="children-carousel__track-wrapper position-relative">
+    <div class="children-carousel__track" data-carousel-target="track">
 
-        <% if user_signed_in? %>
-          <%# 1. Slides pour chaque enfant de l'utilisateur %>
-          <% current_user.user_babies.each do |baby| %>
-            <div class="children-carousel__slide" data-carousel-target="slide">
-              <%= link_to user_baby_path(baby), class: "child-card" do %>
-                <div class="child-card__avatar">
-                  <% if baby.avatar.present? %>
-                    <%= image_tag baby.avatar, class: "child-card__avatar-img" %>
-                  <% else %>
-                    <div class="new-baby-page__illustration">
-                      <div class="new-baby-page__avatar-placeholder">:baby:</div>
-                    </div>
-                  <% end %>
-                </div>
-
-                <div class="child-card__info">
-                  <div class="child-card__value"><%= baby.name %></div>
-                  <div class="child-card__row mt-1">
-                    <div>
-                      <div class="child-card__label">ÂGE</div>
-                      <div class="child-card__value">
-                        <%= distance_of_time_in_words(Date.today, baby.birth_date) %>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="child-card__label">POIDS</div>
-                      <div class="child-card__value"><%= baby.weight %> kg</div>
-                    </div>
+      <%# 1. Slides Enfants %>
+      <% if user_signed_in? %>
+        <% current_user.user_babies.each do |baby| %>
+          <div class="children-carousel__slide" data-carousel-target="slide">
+            <%= link_to user_baby_path(baby), class: "child-card" do %>
+              <div class="child-card__avatar">
+                <% if baby.avatar.present? %>
+                  <%= image_tag baby.avatar, class: "child-card__avatar-img" %>
+                <% else %>
+                  <%# FIX AVATAR : Utilisation de la classe CSS existante %>
+                  <span class="child-card__avatar-emoji">👶</span>
+                <% end %>
+              </div>
+              <div class="child-card__info">
+                <div class="child-card__value"><%= baby.name %></div>
+                <div class="child-card__row mt-1">
+                  <div>
+                    <div class="child-card__label">ÂGE</div>
+                    <div class="child-card__value"><%= distance_of_time_in_words(Date.today, baby.birth_date) %></div>
+                  </div>
+                  <div>
+                    <div class="child-card__label">POIDS</div>
+                    <div class="child-card__value"><%= baby.weight %> kg</div>
                   </div>
                 </div>
-
-                <div class="child-card__arrow">→</div>
-              <% end %>
-            </div>
-          <% end %>
+              </div>
+              <div class="child-card__arrow">→</div>
+            <% end %>
+          </div>
         <% end %>
+      <% end %>
 
-        <%# 2. Slide final : Toujours présent (ou unique si non connecté) %>
-        <div class="children-carousel__slide" data-carousel-target="slide">
-          <%= link_to user_signed_in? ? new_user_baby_path : new_user_session_path, class: "child-card child-card--empty" do %>
-            <div class="child-card__avatar child-card__avatar--empty">
-              <span class="child-card__avatar-emoji" style="color: #C4736A;">＋</span>
-            </div>
-            <div class="child-card__info">
-              <div class="child-card__value" style="color: #C4736A;">Ajouter un enfant</div>
-              <div class="child-card__label">PERSONNALISER LE SUIVI</div>
-            </div>
-            <div class="child-card__arrow child-card__arrow--add">＋</div>
-          <% end %>
-        </div>
-
+      <%# 2. Slide Ajout (Toujours à la fin) %>
+      <div class="children-carousel__slide" data-carousel-target="slide">
+        <%= link_to user_signed_in? ? new_user_baby_path : new_user_session_path, class: "child-card child-card--empty" do %>
+          <div class="child-card__avatar child-card__avatar--empty">
+            <span class="child-card__avatar-emoji" style="color: #C4736A;">＋</span>
+          </div>
+          <div class="child-card__info">
+            <div class="child-card__value" style="color: #C4736A;">Ajouter un enfant</div>
+            <div class="child-card__label">PERSONNALISER LE SUIVI</div>
+          </div>
+          <div class="child-card__arrow child-card__arrow--add">＋</div>
+        <% end %>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
-  </section>
 
+    <%# FIX BOUTONS : Liaison avec le contrôleur Stimulus %>
+    <button class="carousel-control-prev custom-nav" data-action="click->carousel#prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next custom-nav" data-action="click->carousel#next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+</section>
 
-<div class="d-grid gap-2 col-6 mx-auto mt-4">
-  <div class="btn btn-historique rounded-5" data-coaching-target="startButton"  data-action="click->coaching#start" type="button"><%= link_to "Historique", chats_path, class: "text-color" %></div>
-  <div class="btn btn-historique rounded-5" data-coaching-target="startButton"  data-action="click->coaching#start" type="button"><%= link_to "Numéros d'urgence", emergencies_path, class: "text-color" %></div>
+<%# --- BOUTONS ACTIONS --- %>
+<div class="action-menu-container">
+  <%= link_to chats_path, class: "btn-historique" do %>
+    <i class="fa-solid fa-clock-rotate-left me-2"></i> Historique
+  <% end %>
+  <%= link_to emergencies_path, class: "btn-historique" do %>
+    <i class="fa-solid fa-phone-flip me-2"></i> Numéros d'urgence
+  <% end %>
 </div>
