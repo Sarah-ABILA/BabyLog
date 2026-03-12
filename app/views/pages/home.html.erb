@@ -17,7 +17,7 @@
 
     <%# Bouton principal avec contrôleur de coaching si tu souhaites garder l'animation %>
     <div class="mt-4 text-center" data-controller="coaching">
-      <%= link_to "Posez votre question", new_chat_path,
+      <%= link_to "Posez votre question", new_chat_path, method: :post, params: {persona: "default"},
           class: "btn-question shadow-lg",
           data: { coaching_target: "startButton", action: "click->coaching#start" } %>
     </div>

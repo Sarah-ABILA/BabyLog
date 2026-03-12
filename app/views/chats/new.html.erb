@@ -1,0 +1,8 @@
+<h1>Choisissez un bébé</h1>
+
+<% current_user.user_babies.each do |baby| %>
+  <%= button_to baby.name, chats_path,
+      method: :post,
+      params: { persona: "default", user_baby_id: baby.id },
+      class: "btn-question" %>
+<% end %>
