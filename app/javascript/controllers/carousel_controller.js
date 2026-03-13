@@ -66,10 +66,12 @@ export default class extends Controller {
     // const slideWidth = this.slideTargets[0].clientWidth
     // const gap = 12
     // const offset = index * (slideWidth + gap)
-    const slideWidth = this.slideTargets[0].getBoundingClientRect().width
+    // const slideWidth = this.slideTargets[0].getBoundingClientRect().width
+    // const gap = 12
+    // const offset = index * (slideWidth + gap)
+    const slideWidth = this.slideTargets[0].offsetWidth
     const gap = 12
     const offset = index * (slideWidth + gap)
-
     this.trackTarget.style.transform = `translateX(-${offset}px)`
     this.updateDots()
   }
