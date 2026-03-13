@@ -48,7 +48,7 @@ class ResultsController < ApplicationController
     ruby_llm = RubyLLM.chat.with_instructions(MessagesController::SYSTEM_PROMPT)
     # On appelle l'IA
     begin
-      response = ruby_llm.ask(instructions)
+      response = ruby_llm.ask(chat_history)
       # On crée ou on met à jour le résultat
       @result = Result.find_or_create_by(chat: @chat)
       @result.roadmap = response.content
