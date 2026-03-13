@@ -48,6 +48,8 @@ gem "sassc-rails"
 gem "devise"
 gem "devise-i18n" # gem de traduction
 gem "ruby_llm", "~> 1.2.0"
+gem "cloudinary"
+gem "activestorage-cloudinary-service"
 
 group :development, :test do
   gem "dotenv-rails"
