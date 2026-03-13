@@ -14,7 +14,7 @@ class UserBabiesController < ApplicationController
     # @baby.doctor = params[:doctor]
 
     if @user_baby.save
-      redirect_to_user_baby_path(@user_baby)
+      redirect_to user_baby_path(@user_baby)
     else
       render "pages/home", status: :unprocessable_entity
     end
@@ -31,7 +31,7 @@ class UserBabiesController < ApplicationController
   def update
     @user_baby = UserBaby.find(params[:id])
     if @user_baby.update!(baby_params)
-      redirect_to_user_baby_path(@user_baby)
+      redirect_to user_baby_path(@user_baby)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -40,7 +40,7 @@ class UserBabiesController < ApplicationController
   def destroy
     @user_baby = UserBaby.find(params[:id])
     @user_baby.destroy
-    redirect_to "pages/home", status: :see_other
+    redirect_to root_path, status: :see_other
   end
 
   private
