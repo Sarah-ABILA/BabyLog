@@ -18,7 +18,19 @@
       <div class="new-baby-page__avatar-placeholder">👶</div>
     </div>
 
-    <%= simple_form_for @user_baby, url: user_babies_path, method: :post do |f| %>
+    <%= simple_form_for @user_baby, url: user_babies_path, method: :post, html: { multipart: true } do |f| %>
+    <%# ── Photo (optionnelle) ── %>
+  <div class="form-field">
+    <%= f.label :avatar, "Photo de bébé", class: "form-field__label" %>
+    <div class="form-field__wrap">
+      <span class="form-field__icon">📷</span>
+      <%= f.input_field :avatar,
+            as: :file,
+            accept: "image/*",
+            class: "form-field__input" %>
+    </div>
+    <span class="form-field__hint">Facultatif</span>
+  </div>
 
       <%# ── Prénom ── %>
       <div class="form-field">
