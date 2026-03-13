@@ -1,24 +1,212 @@
-// Specific CSS for your home-page
-body{ // pour supprimer les marges par defaut des navigateurs
+// app/assets/stylesheets/pages/_home.scss
+
+// ============================================================
+// pour retirer les marges imposé par les navigateurs
+// ============================================================
+
+* {
+  box-sizing: border-box;
+}
+
+body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden; // Empêche le scroll horizontal
+  width: 100%;
+
 }
 
+.mobile-container {
+  width: 100%;
+  max-width: 390px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.hero-container,
+.action-menu-container {
+  width: 100%;        // Prend 90% de la largeur
+  max-width: 390px;      // EMPÊCHE de devenir trop large sur grand écran
+  margin-left: auto !important;
+  margin-right: auto !important; // FORCE le centrage exact
+  float: none;
+  @media screen and (max-width: 390px) {
+    width: 100%;
+  }        // Annule tout flottement à gauche
+}
+
+
+
+// --- SECTION HERO ---
 .hero-container {
-  width: 93%;
-  margin: 3%;
+
+  height: 250px;
+  border-radius: 25px;
   color: white;
-  height: 230px;
+  margin-top: 1%;
+  // Background avec Overlay pour la lisibilité
+  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.35)),
+                    url('background_home.jpeg');
   background-position: center;
-  align-content: center;
-  background-image: linear-gradient(rgba(0,0,0,0.4)), url('background_home.jpeg');
-  background-repeat: no-repeat;
   background-size: cover;
-  box-shadow: 10px 10px 5px grey;
-  // border-radius: 5%;
+  background-repeat: no-repeat;
+
+  // Flexbox pour centrer le contenu interne
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  box-shadow: 0 10px 25px rgba(196, 115, 106, 0.15);
+
+  @media screen and (max-width: 390px) {
+    width: 92%;      // Un peu plus large sur iPhone 13/14/15
+    height: 210px;
+    margin-top: 15px;
+  }
 }
 
-.text-color {
+.hero-tagline {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+
+  em {
+    font-style: italic;
+    color: #E8A89F; // du rose clair pour le style
+  }
+
+  @media screen and (max-width: 390px) {
+    font-size: 1rem;
+  }
+}
+
+.text-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  opacity: 0.9;
+  margin: 0;
+}
+
+// --- -- BOUTON QUESTION  -- ---
+// BOUTON VERSION 2
+// .btn-question {
+//   background-color: white;
+//   color: #C4736A;
+//   padding: 12px 24px;
+//   border-radius: 50px;
+//   font-weight: 800;
+//   text-decoration: none;
+//   white-space: nowrap; // Évite que le bouton ne revienne à la ligne
+//   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+//   display: inline-block;
+//   transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+//   position: absolute;   // ✅ Sort le bouton du flux normal
+//   bottom: 0;            // ✅ Le place tout en bas du Hero
+//   left: 50%;            // ✅ Le déplace à 50% de la largeur
+
+//   // LA MAGIE : On le remonte de la moitié de sa propre hauteur
+//   // et on compense le décalage du "left: 50%"
+//   transform: translate(-50%, 50%);
+
+//   z-index: 10;          // ✅ S'assure qu'il passe par-dessus le carrousel en dessous
+
+//   &:active {
+//     transform: scale(0.95);
+//   }
+// }
+
+// BOUTON VERSION 2
+.btn-question {
+  // 1. Couleurs & Contraste (Inversion pour plus de punch)
+  background-color: #C4736A; // Ton rose signature en fond
+  color: white;              // Texte en blanc pour le contraste
+
+  // 2. Structure & Typo
+  padding: 14px 32px;        // Un peu plus large pour l'importance
+  border: solid 2px $rose-light; // Une bordure subtile pour le style
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 1.1rem;         // Légèrement plus grand
   text-decoration: none;
+  white-space: nowrap;
+  display: inline-block;
+
+  // 3. Positionnement (Inchangé car parfait)
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 10;
+
+  // 4. Ombre & Animation
+  // On ajoute une ombre colorée pour donner de la profondeur
+  box-shadow: 0 8px 20px rgba(196, 115, 106, 0.4);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  // 5. États Interactifs
+  &:hover {
+    transform: translate(-50%, 40%) scale(1.05); // Se soulève et grossit
+    background-color: darken(#C4736A, 5%);
+    box-shadow: 0 10px 25px rgba(196, 115, 106, 0.5);
+  }
+
+  &:active {
+    transform: translate(-50%, 50%) scale(0.95);
+  }
+
+  // Optionnel : Petite animation de pulsation douce pour attirer l'attention
+  animation: pulse-cta 3s infinite;
+}
+
+@keyframes pulse-cta {
+  0% { box-shadow: 0 0 0 0 rgba(196, 115, 106, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(196, 115, 106, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(196, 115, 106, 0); }
+}
+
+
+
+
+// --- MENU D'ACTIONS (Historique / Urgences) ---
+.action-menu-container {
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @media screen and (max-width: 390px) {
+    width: 92%;
+  }
+}
+
+.btn-historique {
+  background-color: white;
   color: #A4514C;
+  border: 1.5px solid #F0E4DE;
+  padding: 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(196, 115, 106, 0.05);
+
+  i {
+    font-size: 1.1rem;
+  }
+
+  &:active {
+    background-color: #FDFBFA;
+    transform: translateY(1px);
+  }
 }

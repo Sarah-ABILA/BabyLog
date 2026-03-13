@@ -1,13 +1,29 @@
-.card-emergency {
-  display: inline-flex;
-  min-width: 65%;
-  align-items: center;
-  justify-content: center;
-  padding: 26px 26px 10px;
-  font-family: $headers-font;
-  border: 1.5px solid #D4B0AA;
-  background: $babylog-pink;
-  border-color: $babylog-warning;
-  color: $babylog-warning;
-  box-shadow: 10px 10px 5px grey;
+.hero-urgence {
+  background: linear-gradient(135deg, #f5e6e4, #edd5d1);
+  border-radius: 16px;
+  padding: 1.5rem 1rem 1.25rem;
 }
+.hero-title-urgence { font-size: 1.4rem; font-weight: 600; color: #8b4a44; }
+
+.urgence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.urg-card {
+  background: #fdf7f6;
+  border: 0.5px solid #e0b0aa;
+  border-radius: 14px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.urg-card:hover { background: #f5e6e4; }
+.urg-card--wide { grid-column: span 2; flex-direction: row; justify-content: center; }
+.urg-card--add  { border-style: dashed; border-color: #d4877d; background: transparent; }
+.urg-icon  { color: #d4877d; font-size: 1rem; }
+.urg-number { font-size: 1.8rem; font-weight: 700; color: #8b4a44; }
+.urg-label { font-size: 0.75rem; color: #b06860; text-align: center; }
+.urg-label--lg { font-size: 0.9rem; }
