@@ -5,7 +5,6 @@
 
     <!-- ===== HEADER CHAT ===== -->
     <div class="chat-header-card">
-      <h2 class="chat-title"><%= @chat.title %></h2>
 
       <% if current_user.user_babies.any? %>
         <% baby = current_user.user_babies.last %>
@@ -13,15 +12,15 @@
 
         <div class="baby-info">
           <span class="baby-pill">
-            Bébé : <strong><%= baby.name %></strong>
+            👼 Bébé : <strong><%= baby.name %></strong>
           </span>
 
           <span class="baby-pill">
-            Âge : <strong><%= age_in_months %> mois</strong>
+            🎂 Âge : <strong><%= age_in_months %> mois</strong>
           </span>
 
           <span class="baby-pill">
-            Poids : <strong><%= baby.weight %> kg</strong>
+            ⚖️ Poids : <strong><%= baby.weight %> kg</strong>
           </span>
         </div>
       <% end %>

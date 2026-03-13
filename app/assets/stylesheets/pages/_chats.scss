@@ -90,7 +90,16 @@
 /* ===== INPUT CHAT ===== */
 .chat-input {
   display: flex;
-  gap: 12px;
+  flex-direction: column;
+  align-items: center;   // centre horizontalement
+  gap: 12px;             // espace entre input et bouton
+}
+
+.chat-input form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
 }
 
 .chat-text-input {
@@ -99,6 +108,7 @@
   border-radius: 999px;
   border: 1px solid rgba(191,120,138,0.25);
   font-size: 15px;
+  text-align: center;
 }
 
 .chat-send-btn {
@@ -109,6 +119,7 @@
   border-radius: 999px;
   font-weight: 600;
   cursor: pointer;
+  display: block;
 }
 
 .chat-send-btn:hover {
