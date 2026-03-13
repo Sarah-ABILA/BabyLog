@@ -37,7 +37,7 @@ class ResultsController < ApplicationController
   # POST /chats/:chat_id/results
   def create
     # On initialise l'IA avec le prompt système d'origine
-    ruby_llm = RubyLLM.chat.with_instructions(MessagesController::SYSTEM_PROMPT)
+    ruby_llm = RubyLLM.chat.with_instructions(PROMPT_SYSTEM)
     # On appelle l'IA
     begin
       response = ruby_llm.ask(chat_history)
