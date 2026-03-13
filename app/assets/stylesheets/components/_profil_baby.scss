@@ -79,6 +79,14 @@ body {
   border: 4px solid var(--beige);
   box-shadow: 0 6px 20px rgba(139, 94, 90, 0.25);
   z-index: 2;
+
+}
+
+.profile-header__avatar-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 /* ── BODY ───────────────────────────────────────── */
