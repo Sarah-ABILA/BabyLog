@@ -1,5 +1,5 @@
 // ============================================================
-// BabyLog — _carousel.scss (Version Finale Corrigée & Centrée)
+// BabyLog — _carousel.scss (Design Original + Fix Centrage)
 // ============================================================
 
 $rose:        #C4736A;
@@ -12,12 +12,22 @@ $white:       #FFFFFF;
 $font-main:   'Nunito', sans-serif;
 $carousel-speed: 0.4s;
 
+
+.children-carousel__header,
+.children-carousel__track-wrapper {
+  width: 100%;            // Prend 90% de la largeur
+  max-width: 390px;      // EMPÊCHE de devenir trop large sur grand écran
+  margin-left: auto !important;
+  margin-right: auto !important; // FORCE le centrage exact
+  float: none;           // Annule tout flottement à gauche
+}
+
 // ── WRAPPER GLOBAL ───────────────────────────────────────
 .children-carousel {
   display: flex;
   flex-direction: column;
   width: 100%;
-  overflow: hidden; // Coupe ce qui dépasse à droite
+  overflow: hidden;
   margin-top: 30px;
   margin-bottom: 30px;
 }
@@ -27,8 +37,7 @@ $carousel-speed: 0.4s;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 90%;        // Même largeur que le Hero
-  margin: 0 auto 15px auto; // Centré horizontalement
+  // margin: 0 auto 15px auto; // Centre parfaitement
 }
 
 .children-carousel__title {
@@ -60,33 +69,28 @@ $carousel-speed: 0.4s;
   }
 }
 
-// ── TRACK (La piste de défilement) ────────────────────────
+// ── TRACK WRAPPER (La zone visible) ──────────────────────
 .children-carousel__track-wrapper {
   position: relative;
-  width: 90%;
-  overflow: visible; // Permet de voir la carte suivante qui dépasse
+  max-width: 500px; // Aligné sur le Hero
+  overflow: visible; // ✅ On remet visible pour voir la slide suivante dépasser légèrement
 }
 
+// ── TRACK (Le conteneur qui bouge) ───────────────────────
 .children-carousel__track {
   display: flex;
-  padding-left: 5%; // Aligne la 1ère carte sur le bord du titre (5% marge + 90% corps)
   gap: 12px;
+  padding-left: 0%; // Aligne la 1ère slide sur le titre
   transition: transform $carousel-speed cubic-bezier(0.25, 1, 0.5, 1);
   will-change: transform;
 }
 
+// ── SLIDE ────────────────────────────────────────────────
 .children-carousel__slide {
-  flex: 0 0 85%;   // Largeur de la carte (85% de l'écran)
-  width: 85%;
-  box-sizing: border-box;
-  margin-left: 0;  // FIX: On supprime la marge ici, le padding-left du track suffit
-
-  &:last-child {
-    padding-right: 5%; // Espace pour ne pas coller au bord à la fin du swipe
-  }
+  flex: 0 0 92%;
 }
 
-// ── CHILD CARD (Le Design) ───────────────────────────────
+// ── CHILD CARD (Le Design restauré) ──────────────────────
 .child-card {
   background: $white;
   border-radius: 20px;
@@ -109,6 +113,7 @@ $carousel-speed: 0.4s;
 .child-card__avatar {
   width: 55px;
   height: 55px;
+  margin-left: 6%;
   border-radius: 50%;
   background: linear-gradient(140deg, #ECC8BC, #D4A090);
   display: flex;
@@ -129,6 +134,7 @@ $carousel-speed: 0.4s;
 .child-card__value {
   font-size: 15px;
   font-weight: 800;
+  margin-left: 9px;
   color: $text-dark;
   white-space: nowrap;
   overflow: hidden;
@@ -138,6 +144,7 @@ $carousel-speed: 0.4s;
 .child-card__label {
   font-size: 10px;
   font-weight: 700;
+   margin-left: 9px;
   color: $text-light;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -150,10 +157,10 @@ $carousel-speed: 0.4s;
 }
 
 .child-card__arrow {
-  width: 32px;
-  height: 32px;
+  width: 29px;
+  height: 29px;
   border-radius: 50%;
-  border: 1.5px solid #E8C4B8;
+  border: 1.5px solid #df643b;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -167,16 +174,16 @@ $carousel-speed: 0.4s;
   }
 }
 
-// ── BOUTONS NAVIGATION (Flèches) ─────────────────────────
+// ── BOUTONS NAVIGATION ──────────────────────────────────
 .custom-nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(white, 0.9);
+  background: rgba(rgb(108, 99, 99), 0.9);
   backdrop-filter: blur(4px);
   border-radius: 50%;
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   border: none;
   z-index: 10;
   display: flex;
@@ -184,11 +191,10 @@ $carousel-speed: 0.4s;
   justify-content: center;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 
-  &.carousel-control-prev { left: 10px; }
-  &.carousel-control-next { right: 10px; }
+  &.carousel-control-prev { left: 5px; }
+  &.carousel-control-next { right: 5px; }
 
-  // Masquées sur mobile si tu préfères le swipe pur
   @media (max-width: 400px) {
-    display: none;
+    display: none; // Cache sur mobile car le swipe suffit
   }
 }
