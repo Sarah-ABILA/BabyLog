@@ -1,7 +1,8 @@
-<div class="hero-container text-center position-relative mb-5 rounded-5">
-  <div class="col"><%= image_tag "Logo.png", alt: "logo babylog", class:"avatar" %></div>
-  <p class="fw-semibold fs-4">Historique des conversations</p>
-</div>
+<div class="container container-historique">
+  <div class="hero-container text-center position-relative mb-3 rounded-5">
+    <div class="col"><%= image_tag "Logo.png", alt: "logo babylog", class:"avatar" %></div>
+    <p class="fw-semibold fs-4">Mes échanges</p>
+  </div>
 
   <div class="row g-4">
     <!-- créer une carte Rails pour chaque chat.
@@ -11,13 +12,12 @@
       mobile => 1 carte par ligne (prend 12 colonnes soit toute la largeur)
       tablette => 2 cartes par ligne (prend 6 colonnes soit la moitié)
       desktop => 3 cartes par ligne (prend 4 colonnes soit un tier) -->
-      <div class="col-12 col-md-6 col-lg-4">
+      <div class="col-12 col-md-6 col-lg-4 px-2">
         <!-- toute la carte devient cliquable, route Rails vers /chats/:id -->
-        <%= link_to chat_path(chat), class: "chat-card-link" do %>
-
-          <!-- classes CSS custom définies dans le SCSS
-          comme la div est à l'intérieur du lien, cliquer n'importe où sur la carte clique sur le lien -->
-          <div class="chat-card">
+        <div class="chat-card">
+          <%= link_to chat_path(chat), class: "chat-card-link" do %>
+            <!-- classes CSS custom définies dans le SCSS
+            comme la div est à l'intérieur du lien, cliquer n'importe où sur la carte clique sur le lien -->
             <div class="chat-card-header">
               <span class="chat-status">
                 <!-- Rails affiche l'id, ou le titre du chat -->
@@ -33,8 +33,13 @@
             <div class="chat-card-footer">
               <span>Voir la conversation →</span>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+          <%= button_to "🗑️", chat_path(chat),
+              method: :delete,
+              class: "btn-delete-chat",
+              data: { turbo_confirm: "Supprimer cette conversation ?", turbo: false } %>
+        </div>
       </div>
     <% end %>
   </div>
+</div>

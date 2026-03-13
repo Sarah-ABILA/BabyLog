@@ -42,7 +42,7 @@ class UserBabiesController < ApplicationController
   def destroy
     @user_baby = UserBaby.find(params[:id])
     @user_baby.destroy
-    redirect_to "pages/home", status: :see_other
+    redirect_to root_path, status: :see_other
   end
 
   private

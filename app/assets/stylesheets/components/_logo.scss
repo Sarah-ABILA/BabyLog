@@ -1,0 +1,22 @@
+.avatar-logo {
+  // 1. Dimensions et Forme
+  width: 70px;
+  height: 70px;
+  border-radius: 20%; // ✅ 50% pour un cercle parfait
+
+  // 2. Gestion de l'image interne
+  object-fit: cover;
+  object-position: center;
+  background-color: rgba(255, 255, 255, 0.55);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+
+  // 3. Positionnement GAUCHE (La solution)
+  // display: block;          // S'assure que l'élément se comporte bien
+  // align-self: flex-start;  // ✅ Indispensable si le parent est en "align-items: center"
+
+  // 4. Marges
+     // ✅ Marge fixe pour décoller du bord gauche
+  // margin-top: 10px;      // ✅ Marge fixe par rapport au bord TOP du Hero
+  margin-right: auto;    // ✅ Garde le logo à gauche
+  margin-bottom: 48px;    // ✅ Réduit l'espace en dessous pour "remonter" visuellement l'ensemble    // Pousse le texte du Hero vers le bas
+}

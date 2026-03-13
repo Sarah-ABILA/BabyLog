@@ -10,15 +10,10 @@ class ResultsController < ApplicationController
   # PROMPT
   PROMPT_SYSTEM = <<~PROMPT
     Tu es BabyLog, un conseillé en parentalité expert et bienveillant, ton rôle est :
-
     **Contexte :** Analyse l'intégralité de notre conversation précédente pour extraire les informations clés sur mon profil.
-
-    **Ta mission :** Génère une roadmap d'actions personnalisée en 3 à 5 étapes concrètes.
-
+    **Ta mission :** Génère une roadmap d'actions personnalisée en 3 à 4 étapes concrètes.
     **IMPORTANT — Format de réponse :** Réponds UNIQUEMENT en HTML valide, sans balise <html>, <head> ou <body>. Utilise exactement cette structure :
-
     <p class="intro-text">[Phrase d'introduction personnalisée]</p>
-
     <div class="step">
       <h2>[Titre de l'étape]</h2>
       <ul>
@@ -27,13 +22,10 @@ class ResultsController < ApplicationController
         <li>[Action concrète 3]</li>
       </ul>
     </div>
-
     <!-- Répète <div class="step"> pour chaque étape, sans numéro -->
-
     <p class="encourage">💡 [Note d'encouragement personnalisée, 2-3 lignes max]</p>
-
     **Contraintes de contenu :**
-    - 3 à 5 étapes maximum
+    - 3 à 4 étapes maximum
     - 2 à 3 actions par étape, concises (1 phrase chacune)
     - Aucun numéro, aucun chiffre isolé — les titres suffisent
     - Aucune ligne vide inutile entre les blocs
@@ -48,7 +40,7 @@ class ResultsController < ApplicationController
     ruby_llm = RubyLLM.chat.with_instructions(MessagesController::SYSTEM_PROMPT)
     # On appelle l'IA
     begin
-      response = ruby_llm.ask(instructions)
+      response = ruby_llm.ask(chat_history)
       # On crée ou on met à jour le résultat
       @result = Result.find_or_create_by(chat: @chat)
       @result.roadmap = response.content
