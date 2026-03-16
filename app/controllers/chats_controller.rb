@@ -17,14 +17,17 @@ class ChatsController < ApplicationController
   end
 
   def create
-    @chat = Chat.new
+    # On crée le chat en passant les paramètres autorisés (qui incluent user_baby_id)
+    @chat = current_user.chats.build(chat_params)
     @chat.user = current_user
-    @chat.user_baby_id = params[:user_baby_id]
-    @chat.persona = params[:persona]
-    @chat.title = Chat::DEFAULT_TITLE
+    @chat.title = Chat::DEFAULT_TITLE # Assure-toi que cette constante existe dans ton modèle Chat
+
     if @chat.save
+      # On redirige vers le chat spécifique qui vient d'être créé
       redirect_to chat_path(@chat)
     else
+      # Si ça échoue, on retourne à la sélection
+      @user_babies = current_user.user_babies
       render "pages/home", status: :unprocessable_entity
     end
   end

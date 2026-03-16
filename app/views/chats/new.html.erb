@@ -6,11 +6,11 @@
 
   <div class="separator mb-3"></div>
 
-  <% current_user.user_babies.each do |baby| %>
+<% current_user.user_babies.each do |baby| %>
   <%= button_to baby.name, chats_path,
-      method: :post,
-      params: { persona: "default", user_baby_id: baby.id },
-      class: "button-of-baby" %>
-  <% end %>
+        method: :post,
+        params: { user_baby_id: baby.id, persona: "default" },
+        class: "button-of-baby" %>
+<% end %>
 
 </div>
