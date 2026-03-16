@@ -13,7 +13,7 @@
 <% end %>
 
 <%# ── Suivi vaccins ── %>
-<% vac_path = defined?(@child) && @child ? child_vaccinations_path(@child) : "#" %>
+<% vac_path = defined?(@child) && @child ? child_vaccinations_path(@child) : "/vaccinations" %>
   <%= link_to vac_path,
   class: "bottom-nav__item #{controller_name == 'vaccinations' ? 'bottom-nav__item--active' : ''} #{vac_path == '#' ? 'bottom-nav__item--disabled' : ''}" do %>
   <svg class="bottom-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

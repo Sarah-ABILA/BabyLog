@@ -1,0 +1,70 @@
+<div class="main-container-baby">
+  <%# --- LOGO BABLOG (Toujours visible) --- %>
+  <div class="hero-container text-center position-relative mb-5 rounded-5">
+    <div class="col"><%= image_tag "Logo.png", alt: "logo babylog", class:"avatar" %></div>
+  </div>
+
+  <div class="content-wrapper text-center px-3">
+    <% if @babies.empty? %>
+      <%# --- CAS 1 : AUCUN ENFANT ENREGISTRÉ --- %>
+      <h3 class="question-baby mt-3">Vous n'avez pas encore d'enfant enregistré.</h3>
+      <div class="separator mb-4"></div>
+
+      <div class="d-grid gap-3 col-10 mx-auto">
+        <%= link_to "Ajouter un enfant", new_user_baby_path, class: "button-of-baby text-decoration-none" %>
+        <%= link_to "Retour à l'accueil", root_path, class: "btn btn-outline-secondary rounded-pill" %>
+      </div>
+
+    <% elsif params[:baby_id].blank? %>
+      <%# --- CAS 2 : CHOIX DE L'ENFANT (Style Boutons Chat) --- %>
+      <h3 class="question-baby mt-3">Pour quel bébé voulez-vous voir les vaccins ?</h3>
+      <div class="separator mb-3"></div>
+
+      <% @babies.each do |baby| %>
+        <%= link_to baby.name, vaccinations_path(baby_id: baby.id), class: "button-of-baby d-block mb-3 text-decoration-none" %>
+      <% end %>
+
+    <% else %>
+      <%# --- CAS 3 : LISTE DES VACCINS (Après sélection) --- %>
+      <div class="d-flex align-items-center justify-content-center mb-3">
+        <%= link_to vaccinations_path, class: "text-decoration-none text-muted me-3" do %>
+          <i class="fa-solid fa-arrow-left"></i>
+        <% end %>
+        <h3 class="question-baby mb-0">Vaccins de <%= @selected_baby.name %></h3>
+      </div>
+
+      <div class="separator mb-4"></div>
+
+      <div class="container pb-5 mb-5" data-controller="vaccination-update">
+        <% @vaccinations_by_age.each do |age, vaccinations| %>
+          <div class="vaccine-group-container mb-4 text-start">
+            <h4 class="text-primary fw-bold mb-2 ps-2" style="font-size: 1rem; opacity: 0.7;">
+              <%= age %>
+            </h4>
+
+            <div class="bg-white rounded-4 shadow-sm border">
+              <% vaccinations.each_with_index do |v, index| %>
+                <div class="d-flex justify-content-between align-items-center p-3 <%= 'border-bottom' unless index == vaccinations.size - 1 %>">
+
+                  <span class="fs-6 <%= 'text-decoration-line-through text-muted' if v.status %>" id="name-<%= v.id %>">
+                    <%= v.name %>
+                  </span>
+
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch"
+                           id="check-<%= v.id %>"
+                           <%= "checked" if v.status %>
+                           data-action="change->vaccination-update#toggle"
+                           data-vaccination-id="<%= v.id %>"
+                           style="width: 2.2em; height: 1.1em; cursor: pointer;">
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  

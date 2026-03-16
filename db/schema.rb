@@ -243,6 +243,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_16_161844) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vaccinations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.date "injection_date"
+    t.string "name"
+    t.boolean "status", default: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_baby_id", null: false
+    t.index ["user_baby_id"], name: "index_vaccinations_on_user_baby_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chats", "user_babies"
@@ -256,4 +266,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_16_161844) do
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "user_babies", "users"
+  add_foreign_key "vaccinations", "user_babies"
 end

@@ -1,13 +1,14 @@
 class UserBaby < ApplicationRecord
   belongs_to :user
   has_one_attached :avatar
-  
+  has_many :vaccinations, dependent: :destroy
   has_many :chats, dependent: :destroy
   validates :name, presence: true
   validates :birth_date, presence: true
   validates :weight, presence: true
 
   def age_in_months
+   
     ((Date.today - birth_date.to_date) / 30.44).floor
   end
 
