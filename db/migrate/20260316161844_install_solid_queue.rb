@@ -1,18 +1,27 @@
-# This file is auto-generated from the current state of the database. Instead
-# of editing this file, please use the migrations feature of Active Record to
-# incrementally modify your database, and then regenerate this schema definition.
-#
-# This file is the source Rails uses to define your schema when running `bin/rails
-# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
-# be faster and is potentially less error prone than running all of your
-# migrations from scratch. Old migrations may fail to apply correctly if those
-# migrations use external dependencies or application code.
-#
-# It's strongly recommended that you check this file into your version control system.
+class InstallSolidQueue < ActiveRecord::Migration[8.1]
+  def change
+    create_table "solid_cable_messages", force: :cascade do |t|
+    t.binary "channel", limit: 1024, null: false
+    t.binary "payload", limit: 536870912, null: false
+    t.datetime "created_at", null: false
+    t.integer "channel_hash", limit: 8, null: false
+    t.index ["channel"], name: "index_solid_cable_messages_on_channel"
+    t.index ["channel_hash"], name: "index_solid_cable_messages_on_channel_hash"
+    t.index ["created_at"], name: "index_solid_cable_messages_on_created_at"
+    end
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_16_161844) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_catalog.plpgsql"
+    create_table "solid_cache_entries", force: :cascade do |t|
+    t.binary "key", limit: 1024, null: false
+    t.binary "value", limit: 536870912, null: false
+    t.datetime "created_at", null: false
+    t.integer "key_hash", limit: 8, null: false
+    t.integer "byte_size", limit: 4, null: false
+    t.index ["byte_size"], name: "index_solid_cache_entries_on_byte_size"
+    t.index ["key_hash", "byte_size"], name: "index_solid_cache_entries_on_key_hash_and_byte_size"
+    t.index ["key_hash"], name: "index_solid_cache_entries_on_key_hash", unique: true
+    end
+
+      enable_extension "pg_catalog.plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
@@ -73,27 +82,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_16_161844) do
     t.text "roadmap"
     t.datetime "updated_at", null: false
     t.index ["chat_id"], name: "index_results_on_chat_id"
-  end
-
-  create_table "solid_cable_messages", force: :cascade do |t|
-    t.binary "channel", null: false
-    t.bigint "channel_hash", null: false
-    t.datetime "created_at", null: false
-    t.binary "payload", null: false
-    t.index ["channel"], name: "index_solid_cable_messages_on_channel"
-    t.index ["channel_hash"], name: "index_solid_cable_messages_on_channel_hash"
-    t.index ["created_at"], name: "index_solid_cable_messages_on_created_at"
-  end
-
-  create_table "solid_cache_entries", force: :cascade do |t|
-    t.integer "byte_size", null: false
-    t.datetime "created_at", null: false
-    t.binary "key", null: false
-    t.bigint "key_hash", null: false
-    t.binary "value", null: false
-    t.index ["byte_size"], name: "index_solid_cache_entries_on_byte_size"
-    t.index ["key_hash", "byte_size"], name: "index_solid_cache_entries_on_key_hash_and_byte_size"
-    t.index ["key_hash"], name: "index_solid_cache_entries_on_key_hash", unique: true
   end
 
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
@@ -243,16 +231,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_16_161844) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "vaccinations", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.date "injection_date"
-    t.string "name"
-    t.boolean "status", default: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_baby_id", null: false
-    t.index ["user_baby_id"], name: "index_vaccinations_on_user_baby_id"
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chats", "user_babies"
@@ -266,5 +244,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_16_161844) do
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "user_babies", "users"
-  add_foreign_key "vaccinations", "user_babies"
+  end
+
+
 end

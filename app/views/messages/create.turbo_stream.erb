@@ -1,0 +1,11 @@
+<%= turbo_stream.append "bubble" do %>
+  <%= render "messages/message", message: @message%>
+<% end %>
+
+<%= turbo_stream.update "turbo-chat" do %>
+  <%= render "messages/form", message: Message.new, chat: @chat %>
+<% end %>
+
+<%= turbo_stream.update "generate-button" do %>
+  <%= render "messages/button", chat: @chat %>
+<% end %>

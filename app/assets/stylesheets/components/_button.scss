@@ -68,3 +68,36 @@
     color: $babylog-pink;
   }
 }
+
+.btn-supp {
+  display: inline-flex;
+  min-width: 30%;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 26px;
+  border-radius: 50px;
+  border: 1.5px solid rgba(255, 255, 255, 0.48);
+  background: rgba(129, 166, 202, 0.60);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  font-family: $headers-font;
+  font-size: 14px;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  cursor: pointer;
+
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.30);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    background: rgba(255, 255, 255, 0.18);
+  }
+}

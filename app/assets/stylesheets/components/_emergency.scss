@@ -9,6 +9,8 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+  width: 90vw;
+  margin: 0 auto;
 }
 .urg-card {
   background: #fdf7f6;
