@@ -1,0 +1,250 @@
+<%# ================================================== %>
+<%# HEADER COMMUN APP %>
+<%# ================================================== %>
+
+<%= render "results/title" %>
+
+
+<%# ================================================== %>
+<%# PAGE GESTES QUI SAUVENT %>
+<%# ================================================== %>
+
+<div class="gestures-page">
+  <div class="gestures-wrapper">
+
+    <%# ============================================== %>
+    <%# HERO / IMAGE %>
+    <%# ============================================== %>
+
+    <div class="hero-container text-center position-relative mb-3 rounded-5">
+      <div class="col">
+        <%= image_tag "Logo.png", alt: "logo babylog", class: "avatar" %>
+      </div>
+      <p class="fw-semibold fs-4">Gestes qui sauvent</p>
+    </div>
+
+
+    <%# ============================================== %>
+    <%# DATA DES CARTES %>
+    <%# ============================================== %>
+
+    <% gestures = [
+
+
+      # CARD 1 — MON BÉBÉ S'ÉTOUFFE
+      {
+        id: "choking",
+        emoji: "🫁",
+        title: "Mon bébé s'étouffe",
+        badge: "Critique",
+        badge_class: "badge-critical",
+        phone_one: "15",
+        phone_two: "18",
+
+        steps: [
+          {
+            text: "Couchez le bébé face vers le bas sur votre avant-bras, tête plus basse que le thorax.",
+          },
+          {
+            text: "Donnez 5 tapes fermes entre les omoplates avec le talon de la main.",
+            warning: "Ne jamais secouer violemment.",
+          },
+          {
+            text: "Retournez le bébé sur le dos. Appuyez 5 fois sur le sternum avec 2 doigts.",
+          },
+          {
+            text: "Alternez 5 tapes / 5 compressions jusqu'au dégagement.",
+          },
+          {
+            text: "Si bébé perd connaissance : appelez le 15 et commencez la RCP.",
+            warning: "Bébé bleu ou inconscient = appelez le 15 immédiatement.",
+          },
+        ],
+      },
+
+
+      # CARD 2 — MON BÉBÉ NE RÉPOND PLUS
+      {
+        id: "unresponsive",
+        emoji: "💓",
+        title: "Mon bébé ne répond plus",
+        badge: "Critique",
+        badge_class: "badge-critical",
+        phone_one: "15",
+        phone_two: "18",
+
+        steps: [
+          {
+            text: "Appelez le 15 immédiatement ou demandez à quelqu'un de le faire.",
+          },
+          {
+            text: "Posez le bébé sur une surface ferme et plate.",
+          },
+          {
+            text: "Inclinez légèrement la tête en arrière pour ouvrir les voies aériennes.",
+            warning: "Inclinaison douce uniquement chez le nourrisson.",
+          },
+          {
+            text: "Faites 5 insufflations : couvrez bouche ET nez, soufflez doucement.",
+          },
+          {
+            text: "Effectuez 30 compressions thoraciques : 2 doigts au centre du sternum.",
+          },
+          {
+            text: "Alternez 30 compressions / 2 insufflations jusqu'aux secours.",
+            warning: "Ne vous arrêtez pas sauf si bébé reprend conscience.",
+          },
+        ],
+      },
+
+
+      # CARD 3 — MON BÉBÉ EST INCONSCIENT
+      {
+        id: "unconscious",
+        emoji: "😶",
+        title: "Mon bébé est inconscient",
+        badge: "Critique",
+        badge_class: "badge-critical",
+        phone_one: "15",
+        phone_two: "18",
+
+        steps: [
+          {
+            text: "Appelez le 15 immédiatement.",
+          },
+          {
+            text: "Vérifiez si bébé respire : regardez, écoutez, sentez pendant 10 secondes.",
+          },
+          {
+            text: "S'il respire : mettez-le en position latérale de sécurité (PLS).",
+          },
+          {
+            text: "S'il ne respire pas : commencez la RCP (voir fiche RCP).",
+            warning: "Ne jamais laisser un bébé inconscient sans surveillance.",
+          },
+        ],
+      },
+
+
+      # CARD 4 — MON BÉBÉ A DE LA FIÈVRE
+      {
+        id: "fever",
+        emoji: "🌡️",
+        title: "Mon bébé a de la fièvre",
+        badge: "Urgent",
+        badge_class: "badge-urgent",
+        phone_one: "15",
+        phone_two: "18",
+
+        steps: [
+          {
+            text: "Prenez la température : rectale (plus fiable), auriculaire ou axillaire.",
+          },
+          {
+            text: "Moins de 3 mois : toute fièvre > 38°C → appelez le 15 urgences.",
+            warning: "Avant 3 mois, toute fièvre est une urgence.",
+          },
+          {
+            text: "Entre 3 et 6 mois : fièvre > 38°C persistante → consultez rapidement.",
+          },
+          {
+            text: "Déshabiller partiellement bébé, proposer à boire fréquemment.",
+            warning: "Ne pas mettre de glace ni bain froid — risque de choc thermique.",
+          },
+          {
+            text: "Donnez du paracétamol selon le poids (15 mg/kg) si prescrit.",
+            warning: "Ne jamais donner d'aspirine à un nourrisson.",
+          },
+        ],
+      },
+
+
+      # CARD 5 — MON BÉBÉ EST TOMBÉ
+      {
+        id: "fall",
+        emoji: "🤕",
+        title: "Mon bébé est tombé",
+        badge: "Urgent",
+        badge_class: "badge-urgent",
+        phone_one: "15",
+        phone_two: "18",
+
+        steps: [
+          {
+            text: "Restez calme. Ne bougez pas bébé brutalement.",
+          },
+          {
+            text: "Appelez le 15 si bébé a perdu connaissance, même brièvement.",
+            warning: "Perte de connaissance = urgence absolue.",
+          },
+          {
+            text: "Surveillez 24h : vomissements répétés, pleurs inconsolables, regard fixe, fontanelle bombée.",
+            warning: "Ces signes nécessitent une consultation urgente.",
+          },
+          {
+            text: "Si une bosse apparaît, appliquez une poche froide enveloppée dans un tissu 10 min.",
+            warning: "Ne jamais poser la glace directement sur la peau.",
+          },
+        ],
+      },
+
+
+      # CARD 6 — MON BÉBÉ NE BOIT PLUS
+      {
+        id: "drink",
+        emoji: "💧",
+        title: "Mon bébé ne boit plus",
+        badge: "À surveiller",
+        badge_class: "badge-watch",
+        phone_one: "15",
+        phone_two: "18",
+
+        steps: [
+          {
+            text: "Signes à surveiller : bouche sèche, pleurs sans larmes, fontanelle creuse, peu d'urine depuis 6h.",
+          },
+          {
+            text: "Appelez le 15 si bébé est très mou, yeux creux, refus total de boire.",
+            warning: "Déshydratation sévère = urgence vitale chez le nourrisson.",
+          },
+          {
+            text: "Proposez fréquemment le sein ou le biberon. En cas de gastro, utilisez une solution de réhydratation orale (SRO).",
+            warning: "Ne jamais donner d'eau pure seule en cas de gastro.",
+          },
+          {
+            text: "Administrez la SRO à la seringue, petites doses répétées (5 ml toutes les 2-3 min).",
+          },
+        ],
+      }
+    ] %>
+
+
+    <%# ============================================== %>
+    <%# GRILLE DES CARTES %>
+    <%# ============================================== %>
+
+    <div class="gestures-grid">
+      <% gestures.each do |gesture| %>
+        <div
+          class="gesture-card"
+          data-bs-toggle="modal"
+          data-bs-target="#<%= gesture[:id] %>Modal"
+        >
+          <div class="gesture-card-emoji"><%= gesture[:emoji] %></div>
+          <div class="gesture-card-title"><%= gesture[:title] %></div>
+          <div class="gesture-card-badge <%= gesture[:badge_class] %>"><%= gesture[:badge] %></div>
+        </div>
+      <% end %>
+    </div>
+
+
+    <%# ============================================== %>
+    <%# MODALS %>
+    <%# ============================================== %>
+
+    <% gestures.each do |gesture| %>
+      <%= render "gesture_modal", gesture: gesture %>
+    <% end %>
+
+  </div>
+</div>
