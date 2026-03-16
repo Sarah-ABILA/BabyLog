@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :user_babies, only: [:destroy, :update, :edit, :show]
   resources :emergencies, only: [:index]
-
+  resources :vaccinations, only: [:index, :update]
   resources :user_babies, only: [:destroy, :update, :edit, :show] do
     # On niche les chats sous les bébés pour savoir qui on analyse
     resources :chats, only: [:new, :create]
