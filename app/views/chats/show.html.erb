@@ -7,7 +7,7 @@
     <div class="chat-header-card"> <!-- bloc bébé, ajout -->
 
       <% if current_user.user_babies.any? %>
-        <% baby = current_user.user_babies.last %>
+        <% baby = @chat.user_baby %>
         <% age_in_months = ((Date.current.year * 12 + Date.current.month) - (baby.birth_date.year * 12 + baby.birth_date.month)) %>
 
         <div class="baby-info">
