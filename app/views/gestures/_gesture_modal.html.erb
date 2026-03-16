@@ -1,0 +1,83 @@
+<%# ================================================== %>
+<%# PARTIAL MODAL GESTURE %>
+<%# ================================================== %>
+
+<div
+  class="modal fade gesture-modal"
+  id="<%= gesture[:id] %>Modal"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-bottom-sheet">
+    <div class="modal-content">
+
+      <%# ============================================ %>
+      <%# HANDLE TOP %>
+      <%# ============================================ %>
+
+      <div class="modal-handle-wrapper">
+        <div class="modal-handle"></div>
+      </div>
+
+
+      <%# ============================================ %>
+      <%# HEADER %>
+      <%# ============================================ %>
+
+      <div class="gesture-modal-header">
+        <div class="gesture-modal-header-left">
+          <span class="gesture-modal-emoji"><%= gesture[:emoji] %></span>
+          <h2 class="gesture-modal-title"><%= gesture[:title] %></h2>
+        </div>
+
+        <div class="gesture-modal-header-right">
+          <span class="gesture-modal-badge <%= gesture[:badge_class] %>"><%= gesture[:badge] %></span>
+
+          <button
+            type="button"
+            class="gesture-close-btn"
+            data-bs-dismiss="modal"
+            aria-label="Fermer"
+          >
+            ×
+          </button>
+        </div>
+      </div>
+
+
+      <%# ============================================ %>
+      <%# BODY / ETAPES %>
+      <%# ============================================ %>
+
+      <div class="gesture-modal-body">
+
+        <% gesture[:steps].each_with_index do |step, index| %>
+          <div class="gesture-step">
+            <div class="gesture-step-number"><%= index + 1 %></div>
+            <div class="gesture-step-text"><%= step[:text] %></div>
+          </div>
+
+          <% if step[:warning].present? %>
+            <div class="gesture-warning-box">⚠️ <%= step[:warning] %></div>
+          <% end %>
+        <% end %>
+
+      </div>
+
+      <%# ============================================ %>
+      <%# FOOTER / BOUTONS APPEL %>
+      <%# ============================================ %>
+
+      <div class="gesture-modal-footer">
+        <a href="tel:<%= gesture[:phone_one] %>" class="gesture-call-btn">
+          📞 <%= gesture[:phone_one] %> · SAMU
+        </a>
+
+        <a href="tel:<%= gesture[:phone_two] %>" class="gesture-call-btn">
+          🚒 <%= gesture[:phone_two] %> · Pompiers
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>

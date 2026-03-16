@@ -1,0 +1,325 @@
+/* ================================================== */
+/* PAGE GESTURES                                      */
+/* ================================================== */
+
+.gestures-page {
+  background: #f6f3f1;
+  min-height: 100vh;
+  padding: 16px 16px 120px;
+}
+
+.gestures-wrapper {
+  max-width: 430px;
+  margin: 0 auto;
+}
+
+
+/* ================================================== */
+/* HERO                                               */
+/* ================================================== */
+
+.gestures-page .hero-container {
+  overflow: hidden;
+}
+
+.gestures-page .hero-container p {
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  margin-top: -72px;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 2;
+}
+
+
+/* ================================================== */
+/* GRID                                               */
+/* ================================================== */
+
+.gestures-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 8px;
+}
+
+
+/* ================================================== */
+/* CARD                                               */
+/* ================================================== */
+
+.gesture-card {
+  background: #fcf8f7;
+  border: 1px solid #e2b6b1;
+  border-radius: 20px;
+  min-height: 138px;
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.gesture-card:active {
+  transform: scale(0.98);
+}
+
+.gesture-card-emoji {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.gesture-card-title {
+  font-size: 16px;
+  line-height: 1.3;
+  color: #3f3536;
+  font-weight: 600;
+}
+
+.gesture-card-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+/* ================================================== */
+/* BADGES                                             */
+/* ================================================== */
+
+.badge-critical {
+  background: #f7e8e7;
+  color: #b24f57;
+}
+
+.badge-urgent {
+  background: #f9eddc;
+  color: #d07a2c;
+}
+
+.badge-watch {
+  background: #e8f0fb;
+  color: #4f78b8;
+}
+
+
+/* ================================================== */
+/* MODAL BACKDROP                                     */
+/* ================================================== */
+
+.gesture-modal .modal-dialog {
+  margin: 0;
+}
+
+.gesture-modal .modal-content {
+  border: none;
+  border-radius: 26px 26px 0 0;
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.modal-bottom-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 430px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.gesture-modal .modal-dialog-centered {
+  min-height: 100%;
+  align-items: flex-end;
+}
+
+
+/* ================================================== */
+/* MODAL HANDLE                                       */
+/* ================================================== */
+
+.modal-handle-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 4px;
+  background: #fcf8f7;
+}
+
+.modal-handle {
+  width: 42px;
+  height: 5px;
+  border-radius: 999px;
+  background: #d9ccc8;
+}
+
+
+/* ================================================== */
+/* MODAL HEADER                                       */
+/* ================================================== */
+
+.gesture-modal-header {
+  background: #fcf4f1;
+  border-bottom: 1px solid #ecd8d2;
+  padding: 14px 14px 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.gesture-modal-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.gesture-modal-emoji {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.gesture-modal-title {
+  font-size: 18px;
+  line-height: 1.2;
+  margin: 0;
+  color: #2f2728;
+  font-weight: 700;
+}
+
+.gesture-modal-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gesture-modal-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.gesture-close-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid #ccb8b2;
+  background: #fcf8f7;
+  color: #2f2728;
+  font-size: 28px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+
+/* ================================================== */
+/* MODAL BODY                                         */
+/* ================================================== */
+
+.gesture-modal-body {
+  background: #fcf8f7;
+  padding: 16px 16px 8px;
+  max-height: 52vh;
+  overflow-y: auto;
+}
+
+.gesture-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.gesture-step-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #bf7f73;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.gesture-step-text {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #3a3233;
+}
+
+.gesture-warning-box {
+  margin: 4px 0 18px 42px;
+  background: #f8ece7;
+  color: #c35535;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+
+/* ================================================== */
+/* MODAL FOOTER                                       */
+/* ================================================== */
+
+.gesture-modal-footer {
+  background: #fcf8f7;
+  border-top: 1px solid #ecd8d2;
+  padding: 14px 14px 18px;
+  display: flex;
+  gap: 10px;
+  position: sticky;
+  bottom: 0;
+}
+
+.gesture-call-btn {
+  flex: 1;
+  min-height: 46px;
+  border: 1px solid #ccb8b2;
+  border-radius: 12px;
+  background: white;
+  color: #2f2728;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px 8px;
+  font-size: 14px;
+}
+
+
+/* ================================================== */
+/* DESKTOP AJUSTEMENT                                 */
+/* ================================================== */
+
+@media (min-width: 768px) {
+  .gestures-wrapper {
+    max-width: 520px;
+  }
+
+  .modal-bottom-sheet {
+    max-width: 520px;
+  }
+}

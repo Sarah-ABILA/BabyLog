@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :gestures, only: [:index]
   # Création Users avec devise pour l'authentification
   devise_for :users
   root to: "pages#home"
