@@ -266,5 +266,4 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_16_161844) do
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "user_babies", "users"
-  add_foreign_key "vaccinations", "user_babies"
 end
