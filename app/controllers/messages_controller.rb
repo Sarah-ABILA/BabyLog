@@ -3,37 +3,27 @@ class MessagesController < ApplicationController
 
   def create
     @chat = current_user.chats.find(params[:chat_id])
-    @baby = @chat.user_baby # on récupère le bébé lié au chat
+    @baby = @chat.user_baby
     @message = Message.new(message_params)
     @message.chat = @chat
     @message.role = 'user'
 
     if @message.save
-      begin
-        @ruby_llm_chat = RubyLLM.chat.with_instructions(system_prompt_for(@baby)) # prompt dynamique
-
-        @chat.messages.where.not(id: @message.id).each do |msg|
-          @ruby_llm_chat.add_message(role: msg.role, content: msg.content)
-        end
-
-        response = @ruby_llm_chat.ask(@message.content)
-
-        Message.create!(content: response.content, role: "assistant", chat: @chat)
-        @chat.generate_title_from_first_message
-      rescue RubyLLM::RateLimitError
-        Message.create!(
-          chat: @chat,
-          role: "assistant",
-          content: "Désolé, je suis un peu surchargé en ce moment. Peux-tu réessayer dans une minute ?"
-        )
-      rescue StandardError => e
-        logger.error "Erreur IA: #{e.message}"
+      # Déléguer la réponse IA au job SolidQueue
+      AiResponseJob.perform_now(@chat.id, @baby.id)
+      raise
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to chat_path(@chat) }
       end
-
-      redirect_to chat_path(@chat)
     else
-      @messages = @chat.messages
-      render "chats/show", status: :unprocessable_entity
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update("turbo-chat", partial: "messages/form",
+                                                                 locals: { chat: @chat, message: Message.new })
+        end
+        format.html { render "chats/show", status: :unprocessable_entity }
+      end
     end
   end
 
@@ -67,7 +57,7 @@ class MessagesController < ApplicationController
       STRUCTURE DE LA RÉPONSE :
       - EMPATHIE : Une phrase pour valider le sentiment du parent.
       - ANALYSE : Interprétation courte basée sur l'âge de #{baby&.name} (#{baby&.age_label}).
-      - ACTIONS : Une liste de 2 à 3 points maximum, concrets et immédiats.
+      - ACTIONS : Une liste de 2 à 3 points maximum, concrets et immédiats. Formate chaque point ainsi : saute une ligne vide avant chaque tiret, comme ceci :\n\n\n- Premier conseil\n\n\n- Deuxième conseil\n\n\n- Troisième conseil
       - ALERTE : Un signe précis qui doit pousser le parent à consulter.
     PROMPT
   end

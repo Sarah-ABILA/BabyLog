@@ -1,0 +1,7 @@
+<%= turbo_stream.append "bubble" do %>
+<%= render "messages/message", messages: @chat.messages.last(2) %>
+<% end %>
+
+<%= turbo_stream.update "turbo-chat" do %>
+<%= render "messages/form", message: Message.new, chat: @chat %>
+<% end %>

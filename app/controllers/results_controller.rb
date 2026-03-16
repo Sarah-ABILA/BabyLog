@@ -30,7 +30,6 @@ class ResultsController < ApplicationController
     - Aucun numéro, aucun chiffre isolé — les titres suffisent
     - Aucune ligne vide inutile entre les blocs
     - Ne pose jamais de diagnostic médical, tu n'es pas médecin
-    - Rappelle toujours en fin de message : 'Ces conseils ne remplacent pas l'avis d'un pédiatre.'
     - Ton encourageant mais réaliste, ancré dans le profil de la conversation
   PROMPT
 

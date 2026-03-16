@@ -1,15 +1,15 @@
 <div class="mobile-container">
   <%# === SECTION HERO === %>
-  <section class="hero-container text-center position-relative mb-5 rounded-5">
+  <section class="hero-container text-center position-relative mb-5 rounded-5 w-100">
     <div class="hero-content">
-      <div class="col mb-3">
+      <div class="col">
         <%= image_tag "Logo.png", alt: "logo babylog", class: "avatar-logo" %>
       </div>
       <h1 class="hero-tagline">Moins de doutes,<br><em>Plus de clarté.</em></h1>
       <p class="text-value">Votre compagnon parentalité intelligent.</p>
-      <div class="mt-4 text-center" data-controller="coaching">
+      <div class="text-center" data-controller="coaching">
         <%= link_to "Posez votre question", new_chat_path,
-            class: "btn-question shadow-lg",
+            class: "btn-question",
             data: { coaching_target: "startButton", action: "click->coaching#start" } %>
       </div>
     </div>
@@ -94,8 +94,8 @@
 
   <%# --- BOUTONS ACTIONS --- %>
   <div class="action-menu-container">
-    <%= link_to chats_path, class: "btn-historique" do %>
-      <i class="fa-solid fa-clock-rotate-left me-2"></i> Historique
+    <%= link_to root_path, class: "btn-historique" do %>
+      <i class="fa-solid fa-heart-pulse me-2"></i> Les gestes qui sauvent
     <% end %>
     <%= link_to emergencies_path, class: "btn-historique" do %>
       <i class="fa-solid fa-phone-flip me-2"></i> Numéros d'urgence

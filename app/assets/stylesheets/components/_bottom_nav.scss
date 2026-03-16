@@ -135,4 +135,5 @@ $font-main:  'Nunito', sans-serif;
 // ── ESPACE RÉSERVÉ (Pour ne pas cacher le contenu) ────────
 .page-content {
   padding-bottom: calc(90px + env(safe-area-inset-bottom));
+  width: 100vw;
 }

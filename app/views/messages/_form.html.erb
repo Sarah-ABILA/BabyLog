@@ -1,0 +1,9 @@
+<%= turbo_stream_from @chat %>
+
+<%= form_with model: [chat, message] do |f| %>
+  <%= f.text_field :content,
+    placeholder: "Posez votre question...",
+    class: "chat-text-input"
+  %>
+  <%= f.submit "Envoyer", class: "chat-send-btn" %>
+<% end %>

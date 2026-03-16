@@ -9,7 +9,7 @@
       <p class="result-label">Plan d'action personnalisé</p>
 
       <h2 class="chat-title"><%= @chat.title %></h2>
-      
+
       <!-- vérifie la présence de bébé.s pour un user -->
       <% if current_user.user_babies.any? %>
         <!-- .last affiche le dernier bébé enregistré -->
@@ -29,31 +29,34 @@
           <strong><%= age_in_months <= 1 ? "#{age_in_months} mois" : "#{age_in_months} mois" %></strong>
           </span>
 
-          <span class="baby-pill">
+          <span class="baby-pill mb-3">
             ⚖️ Poids :
             <strong><%= baby.weight %> kg</strong>
           </span>
         </div>
+
       <% end %>
     </div>
 
     <!-- l'IA renvoit déjà du html, avec <%= @result.roadmap %>, Rails affiche les balises comme du texte ; avec hmtl_safe cela rend pour de vrai le contenu HTML -->
     <div class="result-card">
+      <p class="ai-disclaimer text-center">⚠️ Ces conseils ne remplacent pas l'avis d'un pédiatre.</p>
+      <div class="separator mb-3"></div>
       <%= @result.roadmap.html_safe %>
     </div>
-    
+
     <!-- retour conversations -->
     <div class="result-actions">
       <%= link_to chats_path, class: "result-btn secondary-btn" do %>
         ← Mes conversations
       <% end %>
-      
+
       <!-- imprimer -->
       <button class="result-btn primary-btn" onclick="window.print()">
         Imprimer le plan
       </button>
     </div>
-    
+
     <!-- retour accueil -->
     <div class="back-home">
       <%= link_to "Retour à l'accueil", root_path, class: "home-link-btn" %>
