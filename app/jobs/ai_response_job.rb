@@ -1,65 +1,59 @@
-# app/jobs/ai_response_job.rb
 class AiResponseJob < ApplicationJob
+  include ActionView::RecordIdentifier
+
   queue_as :default
 
-  def perform(chat_id, baby_id)
-    chat = Chat.find(chat_id)
-    baby = UserBaby.find(baby_id)
+  def perform(user_message)
+    @message = user_message
+    @chat = user_message.chat
+    @baby = @chat.user_baby
+    @assistant_message = @chat.messages.create(role: "assistant", content: "")
+    broadcast_append(@assistant_message)
 
-    # Créer le message assistant vide
-    assistant_message = chat.messages.create!(
-      role: "assistant",
-      content: ""
-    )
+    send_question
 
-    full_content = ""
+    @assistant_message.update(content: @response.content)
+    broadcast_replace(@assistant_message)
 
-    begin
-      ruby_llm_chat = RubyLLM.chat.with_instructions(system_prompt_for(baby))
+    @chat.generate_title_from_first_message
 
-      # Recharger l'historique (sans le dernier message user qui sera passé via ask)
-      messages = chat.messages.where(role: ["user", "assistant"])
-                     .where.not(id: assistant_message.id)
-                     .order(:created_at)
+    return unless @chat.title_previously_changed?
 
-      last_user_message = messages.where(role: "user").last
-      previous_messages = messages.where.not(id: last_user_message.id)
-
-      previous_messages.each do |msg|
-        ruby_llm_chat.add_message(role: msg.role, content: msg.content)
-      end
-
-      # Stream token par token
-      ruby_llm_chat.ask(last_user_message.content) do |chunk|
-        full_content += chunk.content
-
-        Turbo::StreamsChannel.broadcast_update_to(
-          chat,
-          target: "message_#{assistant_message.id}",
-          partial: "messages/message",
-          locals: { message: assistant_message.tap { |m| m.content = full_content } }
-        )
-      end
-
-      assistant_message.update!(content: full_content)
-      chat.generate_title_from_first_message
-    rescue RubyLLM::RateLimitError
-      assistant_message.update!(
-        content: "Désolé, je suis un peu surchargé en ce moment. Peux-tu réessayer dans une minute ?"
-      )
-      Turbo::StreamsChannel.broadcast_update_to(
-        chat,
-        target: "message_#{assistant_message.id}",
-        partial: "messages/message",
-        locals: { message: assistant_message }
-      )
-    rescue StandardError => e
-      Rails.logger.error "Erreur IA: #{e.message}"
-      assistant_message.update!(content: "Une erreur est survenue, merci de réessayer.")
-    end
+    Turbo::StreamsChannel.broadcast_update_to(@chat, target: "chat_title", content: @chat.title)
   end
 
   private
+
+  def build_conversation_history
+    @chat.messages.each do |message|
+      next if message.content.blank?
+
+      @ruby_llm_chat.add_message(message)
+    end
+  end
+
+  def send_question(model: "gpt-4.1-nano", with: {})
+    @ruby_llm_chat = RubyLLM.chat(model: model)
+    build_conversation_history
+    @ruby_llm_chat.with_instructions(system_prompt_for(@baby))
+
+    @response = @ruby_llm_chat.ask(@message.content, with: with) do |chunk|
+      next if chunk.content.blank?
+
+      @assistant_message.content += chunk.content
+      broadcast_replace(@assistant_message)
+    end
+  end
+
+  def broadcast_append(message)
+    Turbo::StreamsChannel.broadcast_append_to(@chat, target: "bubble", partial: "messages/message",
+                                                     locals: { message: message })
+  end
+
+  def broadcast_replace(message)
+    Turbo::StreamsChannel.broadcast_replace_to(@chat, target: dom_id(message), partial: "messages/message",
+                                                      locals: { message: message })
+  end
 
   def system_prompt_for(baby)
     baby_info = if baby.present?

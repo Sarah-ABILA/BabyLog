@@ -1,7 +1,7 @@
 <div id="<%= dom_id(message) %>" class="message <%= message.role == 'user' ? 'message-user' : 'message-ai' %>">
   <div class="message-bubble">
     <% if message.role == "assistant" %>
-      <%= simple_format(message.content) %>
+      <%= message.content.present? ? simple_format(message.content) : '...' %>
     <% else %>
       <%= message.content %>
     <% end %>
