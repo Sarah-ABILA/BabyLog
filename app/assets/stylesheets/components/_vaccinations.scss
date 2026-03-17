@@ -1,0 +1,45 @@
+/* --- Personnalisation des Switch (Checkboxes) --- */
+.form-check-input {
+  cursor: pointer;
+  border-color: #dee2e6;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e");
+
+  &:checked {
+    background-color: #C4736A !important; /* Ta couleur personnalisée */
+    border-color: #C4736A !important;
+  }
+
+  &:focus {
+    border-color: #C4736A;
+    box-shadow: 0 0 0 0.25rem rgba(196, 115, 106, 0.25); /* Halo de focus assorti */
+  }
+}
+
+/* --- Boutons ultra-arrondis (Style Pilule) --- */
+.button-of-baby {
+  background-color: #C4736A;
+  color: white;
+  border-radius: 50px !important; /* Force l'arrondi maximal */
+  padding: 12px 25px;
+  font-weight: 600;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: darken(#C4736A, 10%);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* --- Amélioration des cartes de vaccins --- */
+.bg-white.rounded-4 {
+  border-radius: 20px !important; /* Arrondis plus doux pour les cartes */
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.01); /* Léger effet de zoom au survol */
+  }
+}
