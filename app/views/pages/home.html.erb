@@ -52,9 +52,31 @@
                   <div class="child-card__value"><%= baby.name %></div>
                   <div class="child-card__row mt-1">
                     <div>
+
                       <div class="child-card__label">ÂGE</div>
-                      <div class="child-card__value"><%= distance_of_time_in_words(Date.today, baby.birth_date) %></div>
-                    </div>
+                      <div class="child-card__value"><%
+                            age_in_days = (Date.today - baby.birth_date).to_i
+                            age_in_months = (age_in_days / 30.44).floor
+                            age_in_years = age_in_months / 12
+                            remaining_months = age_in_months % 12
+                          %>
+
+                          <% if age_in_months < 1 %>
+                            <strong><%= age_in_days %> jours</strong>
+
+                          <% elsif age_in_months < 24 %>
+                            <strong><%= age_in_months %> mois</strong>
+
+                          <% else %>
+                            <strong>
+                              <%= age_in_years %> ans
+                              <% if remaining_months > 0 %>
+                                <%= remaining_months %> mois
+                              <% end %>
+                            </strong>
+                          <% end %>
+                          </div>
+                      </div>
                     <div>
                       <div class="child-card__label">POIDS</div>
                       <div class="child-card__value"><%= baby.weight %> kg</div>

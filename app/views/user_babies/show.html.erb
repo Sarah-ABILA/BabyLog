@@ -32,14 +32,28 @@
     <%# Nom + badge âge %>
     <div class="profile-name">
       <h2><%= @user_baby.name %></h2>
-      <% months = ((Date.today - @user_baby.birth_date) / 30.44).floor %>
       <span class="profile-name__badge">
-        <% if months < 24 %>
-          <%= months %> mois
+        <%
+          age_in_days = (Date.today - @user_baby.birth_date).to_i
+          age_in_months = (age_in_days / 30.44).floor
+          age_in_years = age_in_months / 12
+          remaining_months = age_in_months % 12
+        %>
+
+        <% if age_in_months < 1 %>
+          <strong><%= age_in_days %> jours</strong>
+
+        <% elsif age_in_months < 24 %>
+          <strong><%= age_in_months %> mois</strong>
+
         <% else %>
-          <%= months / 12 %> an<%= 's' if months / 12 > 1 %>
+          <strong>
+            <%= age_in_years %> ans
+            <% if remaining_months > 0 %>
+              <%= remaining_months %> mois
+            <% end %>
+          </strong>
         <% end %>
-      </span>
     </div>
 
     <%# ── Card formulaire de mise à jour ── %>
@@ -147,4 +161,3 @@
 
   </div>
 </div>
-

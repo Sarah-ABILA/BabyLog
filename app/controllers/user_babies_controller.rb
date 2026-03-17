@@ -14,9 +14,9 @@ class UserBabiesController < ApplicationController
     # @baby.doctor = params[:doctor]
 
     if @user_baby.save
-      redirect_to user_baby_path(@user_baby)
+      redirect_to root_path
     else
-      render "pages/home", status: :unprocessable_entity
+      render "root", status: :unprocessable_entity
     end
   end
 
@@ -33,7 +33,7 @@ class UserBabiesController < ApplicationController
     update_params = baby_params
     update_params = update_params.except(:avatar) unless params[:user_baby][:avatar].present?
     if @user_baby.update!(baby_params)
-      redirect_to user_baby_path(@user_baby)
+      redirect_to root_path
     else
       render :edit, :show, status: :unprocessable_entity
     end
