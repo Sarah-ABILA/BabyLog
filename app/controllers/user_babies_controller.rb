@@ -14,9 +14,13 @@ class UserBabiesController < ApplicationController
     # @baby.doctor = params[:doctor]
 
     if @user_baby.save
+     Vaccination::VACCINES_LIST.each do |v|
+      Vaccination.create!(name: v[:name], age: v[:age], user_baby_id: @user_baby.id)
+     end
+
       redirect_to root_path
     else
-      render "root", status: :unprocessable_entity
+      render "new", status: :unprocessable_entity
     end
   end
 
