@@ -31,14 +31,30 @@ def index
 
     # Sécurité : on ne crée les vaccins que si on a bien trouvé un bébé
     if @selected_baby
-      VACCINES_LIST.each do |vac|
-        @selected_baby.vaccinations.find_or_create_by!(name: vac[:name]) do |v|
-          v.status = false
-        end
-      end
-
       @vaccinations_by_age = @selected_baby.vaccinations
-        .group_by { |v| age_label_for(v.name) }
+  .map do |v|
+    vac_info = VACCINES_LIST.find { |x| x[:name] == v.name }
+    age_in_months = vac_info ? vac_info[:age] : 999
+    recommended_date = vac_info ? @selected_baby.date_for_age(vac_info[:age]) : nil
+
+    {
+      vaccination: v,
+      recommended_date: recommended_date,
+      age_label: age_label_for(v.name),
+      age_in_months: age_in_months
+    }
+  end
+  .sort_by { |h| h[:age_in_months] }
+  .group_by { |h| h[:age_label] }
+      #VACCINES_LIST.each do |vac|
+        #@selected_baby.vaccinations.find_or_create_by!(name: vac[:name]) do |v|
+         # #v.status = false
+          #v.age = vac[:age]
+       # end
+      #end
+
+      #@vaccinations_by_age = @selected_baby.vaccinations
+      #  .group_by { |v| age_label_for(v.name) }
     end
   end
 end
@@ -90,6 +106,20 @@ end
 
   def age_label_for(name)
     vac = VACCINES_LIST.find { |v| v[:name] == name }
-    vac ? "#{vac[:age]} mois" : "Autre"
+    return "Autre" unless vac
+
+    total_months = vac[:age]
+    return "Naissance" if total_months == 0
+
+    years, months = total_months.divmod(12)
+
+    if years > 0
+      # Affiche "X ans Y mois" ou juste "X ans"
+      label = "#{years} #{'an'.pluralize(years)}"
+      label += " et #{months} mois" if months > 0
+      label
+    else
+      "#{months} mois"
+    end
   end
 end

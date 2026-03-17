@@ -8,8 +8,12 @@ class UserBaby < ApplicationRecord
   validates :weight, presence: true
 
   def age_in_months
-   
+
     ((Date.today - birth_date.to_date) / 30.44).floor
+  end
+
+  def date_for_age(age_in_months)
+    birth_date + age_in_months.months
   end
 
   def age_label
