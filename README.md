@@ -2,12 +2,10 @@
 
 > _Moins de doutes, plus de clarté._ — Votre compagnon parentalité intelligent.
 
-[![Live demo](https://img.shields.io/badge/Live_demo-babylog.space-2E7D32?logo=safari&logoColor=white)](https://www.babylog.space)
 [![YouTube demo](https://img.shields.io/badge/Demo_vidéo-YouTube-FF0000?logo=youtube&logoColor=white)](https://youtu.be/GDcfvlVaDjs)
 [![Ruby on Rails](https://img.shields.io/badge/Ruby_on_Rails-8.0-CC0000?logo=rubyonrails&logoColor=white)](https://rubyonrails.org/)
 [![Anthropic Claude](https://img.shields.io/badge/Claude_API-D97757?logo=anthropic&logoColor=white)](https://www.anthropic.com/)
 
-🌐 **Démo en ligne** : https://www.babylog.space  
 🎬 **Présentation vidéo (Le Wagon Demo Day, Batch #2208)** : https://youtu.be/GDcfvlVaDjs
 
 ---
@@ -56,7 +54,7 @@ Le projet a été mené en équipe de quatre développeurs en sprint d'une semai
 | **Stockage de fichiers** | Active Storage (avatars enfants) |
 | **PWA** | Mobile-web-app-capable, apple-touch-icon, manifest |
 | **Design** | Figma (maquettes haute fidélité + prototype interactif) |
-| **Déploiement** | Scalingo (production sur https://www.babylog.space) |
+| **Déploiement** | Scalingo, domaine personnalisé (démo du Demo Day, aujourd'hui hors ligne) |
 | **Collaboration** | Git, GitHub, méthode agile |
 
 ## Mon rôle dans l'équipe
@@ -97,9 +95,8 @@ cd BabyLog
 bundle install
 yarn install
 
-# Variables d'environnement
-cp .env.example .env
-# Renseigner ANTHROPIC_API_KEY=sk-ant-...
+# Variables d'environnement : créer un fichier .env contenant
+# ANTHROPIC_API_KEY=votre_cle_api
 
 # Préparer la base
 rails db:create db:migrate db:seed
@@ -126,4 +123,4 @@ Conçu et développé par **Kaliaa77, [Sarah-ABILA](https://github.com/Sarah-ABI
 
 ---
 
-_Sarah Abila — Hyères (83) — [LinkedIn](https://linkedin.com/in/sarah-abila-278041378) — [GitHub](https://github.com/Sarah-ABILA)_
+_Sarah Abila — Hyères (83) — [LinkedIn](https://linkedin.com/in/sarah-abila) — [GitHub](https://github.com/Sarah-ABILA)_
